@@ -20,6 +20,7 @@ export default function LoginScreen({ navigation }) {
 
         const user = userCredential.user;
         console.warn("signed in");
+        navigation.navigate("Home");
         // ...
       })
       .catch((error) => {
