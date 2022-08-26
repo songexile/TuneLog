@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import styles from "./styles";
+import styles from "./styles"; //styles
+import FINAL_STYLES from ".././../FINAL_STYLES"; //styles main
 import { auth } from "../../firebase/config";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -21,11 +22,20 @@ export default function LoginScreen({ navigation }) {
         const user = userCredential.user;
         console.warn("signed in");
         navigation.navigate("Home");
+        console.warn(user);
         // ...
       })
       .catch((error) => {
+        //If any error we will catch
         const errorCode = error.code;
-        const errorMessage = error.message;
+
+        if (errorCode === "auth/user-not-found") {
+          console.warn("User not found");
+        }
+
+        if (errorCode === "auth/wrong-password") {
+          console.warn("Wrong password");
+        }
       });
   };
 
@@ -58,7 +68,10 @@ export default function LoginScreen({ navigation }) {
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />
-        <TouchableOpacity style={styles.button} onPress={() => onLoginPress()}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#9D3BEA" }]} //TODO: change to global styles
+          onPress={() => onLoginPress()}
+        >
           <Text style={styles.buttonTitle}>Log in</Text>
         </TouchableOpacity>
         <View style={styles.footerView}>
