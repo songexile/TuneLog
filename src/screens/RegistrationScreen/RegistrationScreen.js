@@ -20,25 +20,12 @@ export default function RegistrationScreen({ navigation }) {
       alert("Passwords don't match.");
       return;
     }
-    auth;
     createUserWithEmailAndPassword(auth, email, password)
-      .then((response) => {
-        const uid = response.user.uid;
-        const data = {
-          id: uid,
-          email,
-          fullName,
-        };
-        const usersRef = firebase.firestore().collection("users");
-        usersRef
-          .doc(uid)
-          .set(data)
-          .then(() => {
-            navigation.navigate("Home", { user: data });
-          })
-          .catch((error) => {
-            alert(error);
-          });
+      .then((userCredential) => {
+        const user = userCredential.user;
+        alert("Welcome");
+        navigation.navigate("Home");
+
       })
       .catch((error) => {
         alert(error);
