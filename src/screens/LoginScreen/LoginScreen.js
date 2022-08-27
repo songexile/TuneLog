@@ -7,7 +7,7 @@ import { auth } from "../../firebase/config";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("therunningbeta@gmail.com"); //setting as temp state
   const [password, setPassword] = useState("");
 
   const onFooterLinkPress = () => {
@@ -38,7 +38,7 @@ export default function LoginScreen({ navigation }) {
         }
       });
   };
-
+  //Below we return JSX
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView

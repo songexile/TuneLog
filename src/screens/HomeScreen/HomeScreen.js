@@ -1,10 +1,14 @@
 import React from "react";
 import { Text, View } from "react-native";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
+const user = auth.currentUser;
 
 export default function HomeScreen(props) {
   return (
     <View>
-      <Text>Home Screen</Text>
+      <Text>Welcome to TuneLog </Text>
     </View>
   );
 }
