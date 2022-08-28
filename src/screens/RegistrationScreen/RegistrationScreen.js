@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles";
-import { auth } from "../../firebase/config";
+import { auth } from "../../model/config";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function RegistrationScreen({ navigation }) {
@@ -25,7 +25,6 @@ export default function RegistrationScreen({ navigation }) {
         const user = userCredential.user;
         alert("Welcome");
         navigation.navigate("Home");
-
       })
       .catch((error) => {
         alert(error);
