@@ -3,7 +3,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import styles from "./styles"; //styles
 import FINAL_STYLES from ".././../FINAL_STYLES"; //styles main
-import { auth } from "../../firebase/config";
+import { auth } from "../../model/config";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginScreen({ navigation }) {
