@@ -8,7 +8,7 @@ const user = auth.currentUser;
 export default function HomeScreen(props) {
   return (
     <View>
-      <Text>Welcome to TuneLog </Text>
+      <Text>Welcome to TuneLog t </Text>
     </View>
   );
 }
