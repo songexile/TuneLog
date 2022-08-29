@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styles from "./styles";
 import { auth } from "../../model/config";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import useAuth from "../../hooks/useAuth";
 
 export default function RegistrationScreen({ navigation }) {
   const [fullName, setFullName] = useState("");
@@ -11,24 +12,10 @@ export default function RegistrationScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const { onRegisterPress } = useAuth();
+
   const onFooterLinkPress = () => {
     navigation.navigate("Login");
-  };
-
-  const onRegisterPress = () => {
-    if (password !== confirmPassword) {
-      alert("Passwords don't match.");
-      return;
-    }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        alert("Welcome");
-        navigation.navigate("Home");
-      })
-      .catch((error) => {
-        alert(error);
-      });
   };
 
   return (
@@ -81,7 +68,7 @@ export default function RegistrationScreen({ navigation }) {
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => onRegisterPress()}
+          onPress={() => onRegisterPress(email, password, confirmPassword)}
         >
           <Text style={styles.buttonTitle}>Create account</Text>
         </TouchableOpacity>
