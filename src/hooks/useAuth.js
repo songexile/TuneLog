@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../model/config";
 import {
   signInWithEmailAndPassword,
@@ -9,6 +9,18 @@ import {
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null); //user is initally null
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+  }, []);
+
   const onLoginPress = (email, password) => {
     //Takes in two arguments, email and password used in LoginScreen class
     signInWithEmailAndPassword(auth, email, password)
@@ -39,10 +51,12 @@ export const AuthProvider = ({ children }) => {
   const onRegisterPress = (email, password, confirmPassword) => {
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
+      return;
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+
         alert("Welcome");
       })
       .catch((error) => {
@@ -51,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user: null, onLoginPress, onRegisterPress }}>
+    <AuthContext.Provider value={{ user, onLoginPress, onRegisterPress }}>
       {children}
     </AuthContext.Provider>
   );
