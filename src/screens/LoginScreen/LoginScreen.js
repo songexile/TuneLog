@@ -5,8 +5,10 @@ import styles from "./styles"; //styles
 import FINAL_STYLES from ".././../FINAL_STYLES"; //styles main
 import { auth } from "../../model/config";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import useAuth from "../../hooks/useAuth";
 
 export default function LoginScreen({ navigation }) {
+  const { onLoginPress } = useAuth();
   const [email, setEmail] = useState("therunningbeta@gmail.com"); //setting as temp state
   const [password, setPassword] = useState("");
 
@@ -14,30 +16,6 @@ export default function LoginScreen({ navigation }) {
     navigation.navigate("Registration");
   };
 
-  const onLoginPress = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-
-        const user = userCredential.user;
-        console.warn("signed in");
-        navigation.navigate("Home");
-        console.warn(user);
-        // ...
-      })
-      .catch((error) => {
-        //If any error we will catch
-        const errorCode = error.code;
-
-        if (errorCode === "auth/user-not-found") {
-          console.warn("User not found");
-        }
-
-        if (errorCode === "auth/wrong-password") {
-          console.warn("Wrong password");
-        }
-      });
-  };
   //Below we return JSX
   return (
     <View style={styles.container}>
@@ -70,7 +48,7 @@ export default function LoginScreen({ navigation }) {
         />
         <TouchableOpacity
           style={[styles.button, { backgroundColor: "#9D3BEA" }]} //TODO: change to global styles
-          onPress={() => onLoginPress()}
+          onPress={() => onLoginPress(email, password)}
         >
           <Text style={styles.buttonTitle}>Log in</Text>
         </TouchableOpacity>
