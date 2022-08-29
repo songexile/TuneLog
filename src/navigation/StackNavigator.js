@@ -1,14 +1,13 @@
 import { View, Text, Button } from "react-native";
 import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
-
 import { HomeScreen, LoginScreen, RegistrationScreen } from "../screens";
+import useAuth from "../hooks/useAuth";
 
 const Stack = createStackNavigator();
-const user = false;
 
 const StackNavigator = () => {
+  const { user } = useAuth();
   return (
     <Stack.Navigator>
       {user ? ( // if user is logged in we show the home screen
