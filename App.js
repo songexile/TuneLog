@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
 import { decode, encode } from "base-64";
 import StackNavigator from "./src/navigation/StackNavigator";
+import { AuthProvider } from "./src/hooks/useAuth";
 
 const Stack = createStackNavigator();
 
@@ -14,7 +15,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StackNavigator />
+      <AuthProvider>
+        <StackNavigator />
+      </AuthProvider>
     </NavigationContainer>
   );
 }
