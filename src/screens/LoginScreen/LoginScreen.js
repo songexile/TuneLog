@@ -16,6 +16,10 @@ export default function LoginScreen({ navigation }) {
     navigation.navigate("Registration");
   };
 
+  const onForgotPasswordPress = () => {
+    navigation.navigate("ForgotPassword");
+  };
+
   //Below we return JSX
   return (
     <View style={styles.container}>
@@ -58,6 +62,9 @@ export default function LoginScreen({ navigation }) {
             <Text onPress={onFooterLinkPress} style={styles.footerLink}>
               Sign up
             </Text>
+          </Text>
+          <Text onPress={onForgotPasswordPress} style={styles.footerLink}>
+            Forgot Password
           </Text>
         </View>
       </KeyboardAwareScrollView>

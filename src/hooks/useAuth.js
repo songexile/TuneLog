@@ -4,6 +4,7 @@ import { auth } from "../model/config";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 
@@ -75,9 +76,30 @@ export const AuthProvider = ({ children, navigation }) => {
     setLoading(false); //loading is set to false
   };
 
+  const resetPassword = (email) => {
+    setLoading(true); //loading is set to true
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("Password reset email sent.");
+      })
+      .catch((error) => {
+        alert(error);
+      })
+      .finally(() => {
+        setLoading(false); //loading is set to false
+      });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, onLoginPress, onRegisterPress, signOut, loading }}
+      value={{
+        user,
+        onLoginPress,
+        onRegisterPress,
+        signOut,
+        loading,
+        resetPassword,
+      }}
     >
       {!loadingInital && children}
     </AuthContext.Provider>

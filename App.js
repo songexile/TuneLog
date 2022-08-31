@@ -6,6 +6,7 @@ import { LoginScreen, HomeScreen, RegistrationScreen } from "./src/screens";
 import { decode, encode } from "base-64";
 import StackNavigator from "./src/navigation/StackNavigator";
 import { AuthProvider } from "./src/hooks/useAuth";
+import TabNavigator from "./src/navigation/TabNavigator";
 
 const Stack = createStackNavigator();
 
