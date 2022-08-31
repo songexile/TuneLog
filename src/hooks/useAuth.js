@@ -5,10 +5,11 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
 const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children, navigation }) => {
   const [user, setUser] = useState(null); //user is initally null
   const [loadingInital, setLoadingInital] = useState(true); //loadingInital is initally true
   const [loading, setLoading] = useState(false); //loading is initally false
@@ -27,34 +28,28 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const onLoginPress = (email, password) => {
-    setLoading(true); //loading is set to true
-    //Takes in two arguments, email and password used in LoginScreen class
+    setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
-
-        const user = userCredential.user;
-        console.warn("signed in");
-        console.warn(user);
-        //Navigate after sign in
-        // ...
+        setUser(userCredential.user);
       })
       .catch((error) => {
-        //If any error we will catch
         const errorCode = error.code;
-
         if (errorCode === "auth/user-not-found") {
           console.warn("User not found");
         }
-
         if (errorCode === "auth/wrong-password") {
           console.warn("Wrong password");
         } else {
           console.warn(error);
         }
+      })
+      .finally(() => {
+        // to make sure it runs after the promise has resolved
+        setLoading(false);
       });
-    setLoading(false); //loading is set to false
   };
+
   const onRegisterPress = (email, password, confirmPassword) => {
     setLoading(true); //loading is set to true
     if (password !== confirmPassword) {
@@ -63,20 +58,20 @@ export const AuthProvider = ({ children }) => {
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-
-        alert("Welcome");
+        setUser(userCredential.user);
       })
       .catch((error) => {
         alert(error);
+      })
+      .finally(() => {
+        setLoading(false); //loading is set to false
       });
-    setLoading(false); //loading is set to false
   };
 
   const signOut = () => {
     setLoading(true); //loading is set to true
     auth.signOut();
-    console.warn(user);
+    setUser(null); //user is set to null
     setLoading(false); //loading is set to false
   };
 
