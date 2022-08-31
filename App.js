@@ -10,8 +10,8 @@ import { AuthProvider } from "./src/hooks/useAuth";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  //const [loading, setLoading] = useState(true);
+  //const [user, setUser] = useState(null);
 
   return (
     <NavigationContainer>
