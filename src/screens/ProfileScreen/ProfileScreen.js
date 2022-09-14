@@ -4,6 +4,8 @@ import styles from "./styles";
 import zyzz from "../../../assets/zyzz.jpg";
 import CustomButton from "../../components/CustomButton";
 import ProfileImage from "../../components/ProfileImage";
+import ProfileStatSnippet from "../../components/StatsComponents/ProfileStatSnippet";
+import CurrentMusicMoodComponent from "../../components/CurrentMusicMoodComponent";
 
 let name = "Aziz Zyzz";
 
@@ -15,14 +17,15 @@ const ProfileScreen = ({ navigation }) => {
 
       <CustomButton
         title="Edit Profile"
-        onPress={() => navigation.navigate("Stats")}
-      />
-      <Button
-        style={styles.button}
-        title="Edit Profile"
         onPress={() => navigation.navigate("EditProfile")}
       />
-      <Button title="Stats" onPress={() => navigation.navigate("Stats")} />
+
+      <ProfileStatSnippet genre="Hyperpop" />
+      <CurrentMusicMoodComponent artist="Bladee" user="Aziz" song="Gluee" />
+      <CustomButton
+        title="View stats"
+        onPress={() => navigation.navigate("Stats")}
+      />
     </View>
   );
 };
