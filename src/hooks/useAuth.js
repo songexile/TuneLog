@@ -30,6 +30,11 @@ export const AuthProvider = ({ children, navigation }) => {
 
   const onLoginPress = (email, password) => {
     setLoading(true);
+    if (email === "" || password === "") {
+      alert("Please enter your email and password");
+      setLoading(false);
+      return;
+    }
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
@@ -37,10 +42,10 @@ export const AuthProvider = ({ children, navigation }) => {
       .catch((error) => {
         const errorCode = error.code;
         if (errorCode === "auth/user-not-found") {
-          console.warn("User not found");
+          alert("User not found");
         }
         if (errorCode === "auth/wrong-password") {
-          console.warn("Wrong password");
+          alert("Wrong password");
         } else {
           console.warn(error);
         }
@@ -53,10 +58,45 @@ export const AuthProvider = ({ children, navigation }) => {
 
   const onRegisterPress = (email, password, confirmPassword) => {
     setLoading(true); //loading is set to true
+    if (email === "" && password === "" && confirmPassword === "") {
+      alert("All fields cannot be empty.");
+      return;
+    }
+
+    if (password === "") {
+      alert("Password cannot be empty.");
+      return;
+    }
+
+    if (email === "") {
+      alert("Email cannot be empty.");
+      return;
+    }
+
+    if (confirmPassword === "") {
+      alert("Confirm Password cannot be empty.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert("Passwords don't match.");
       return;
     }
+
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long.");
+      return;
+    }
+
+    const isVaildEmail = (email) => {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    if (!isVaildEmail(email)) {
+      alert("Please enter a valid email.");
+      return;
+    }
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
@@ -78,6 +118,20 @@ export const AuthProvider = ({ children, navigation }) => {
 
   const resetPassword = (email) => {
     setLoading(true); //loading is set to true
+
+    if (email === "") {
+      alert("Email cannot be empty.");
+      return;
+    }
+    const isVaildEmail = (email) => {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    if (!isVaildEmail(email)) {
+      alert("Please enter a valid email.");
+      return;
+    }
+
     sendPasswordResetEmail(auth, email)
       .then(() => {
         alert("Password reset email sent.");
