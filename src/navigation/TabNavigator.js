@@ -18,6 +18,7 @@ function TabNavigator() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
+          size = 25;
           if (route.name === "Home") {
             return (
               <Ionicons
