@@ -3,19 +3,19 @@ import {  ResponseType, useAuthRequest } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import { Button, Text, View } from "react-native";
 import { getAuth } from "firebase/auth";
+import useAuth from "../../hooks/useAuth";
 
 WebBrowser.maybeCompleteAuthSession();
 
-const auth = getAuth();
-const user = auth.currentUser;
-
-const discovery = {
+const ConnectSpotifyScreen = () => {
+  const { signOut } = useAuth();
+  
+  const discovery = {
     authorizationEndpoint: "https://accounts.spotify.com/authorize",
     tokenEndpoint: "https://accounts.spotify.com/api/token",
 
-}
+  }
 
-export default function App() {
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
@@ -48,22 +48,34 @@ export default function App() {
   }, [response]);
 
   return (
-    <Button
-      style={{
+    <View style={{
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+
+      <Button
+        style={{
         textAlign:'center',
         justifyContent: 'center',
         alignItems: 'center',
         paddingLeft:40,
         paddingRight:40,
-        marginTop:10,
-        height:40
-      }}
-      light
-      disabled={!request}
-      title="Login to Spotify"
-      onPress={() => {
-        promptAsync();
+        marginTop:50,
+        height:40,
+        position: 'absolute',
+
         }}
-    />
-  );
+        light
+        disabled={!request}
+        title="Login to Spotify"
+        onPress={() => {
+          promptAsync();
+          }}
+      />
+      <Button onPress={signOut} title="signout"></Button>
+    </View>
+  )
 }
+
+export default ConnectSpotifyScreen
