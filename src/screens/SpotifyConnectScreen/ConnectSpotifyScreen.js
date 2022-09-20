@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import {  ResponseType, useAuthRequest } from 'expo-auth-session';
-import * as WebBrowser from 'expo-web-browser';
+import React from "react";
 import { Button, Text, View } from "react-native";
 import { getAuth } from "firebase/auth";
-
-WebBrowser.maybeCompleteAuthSession();
+import useAuth from "../../hooks/useAuth";
+import { CLIENT_ID, CLIENT_SECRET } from "../../config/spotifyCredentials";
 
 const auth = getAuth();
 const user = auth.currentUser;
@@ -15,12 +13,21 @@ const discovery = {
 
 }
 
-export default function App() {
-  const [request, response, promptAsync] = useAuthRequest(
+const spotifyAuth = () => {
+    
+};
+
+const spotifyCredentials = {
+    CLIENT_ID: "ecf0bbd85d8c4456a8551dc30224ee83",
+  
+    CLIENT_SECRET: "04d9b1dd0c5d4a9b92898b0c8dde5bb5"
+  }
+
+const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
-      clientId: 'ecf0bbd85d8c4456a8551dc30224ee83',
-      clientSecret: '04d9b1dd0c5d4a9b92898b0c8dde5bb5',
+      clientId: CLIENT_ID,
+      clientSecret: CLIENT_SECRET,
       scopes: [
         "user-read-currently-playing",
         "user-read-recently-played",
@@ -31,39 +38,27 @@ export default function App() {
         "user-read-email",
         "user-read-private",
       ],
-      // In order to follow the "Authorization Code Flow" to fetch token after authorizationEndpoint
-      // this must be set to false
       usePKCE: false,
-      redirectUri:'exp://10.0.0.41:19000'
-      
+      redirectUri: "exp://10.0.0.41:19000/",
     },
     discovery
-  );
+);
 
-  React.useEffect(() => {
-    if (response?.type === 'success') {
+useEffect(() => {
+    if (response?.type === "success") {
       const { access_token } = response.params;
-      console.log("accessToken", access_token);
-      }
+      setToken(access_token);
+    }
   }, [response]);
 
+export default function ConnectSpotify(props) {
+  const { signOut } = useAuth();
   return (
-    <Button
-      style={{
-        textAlign:'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft:40,
-        paddingRight:40,
-        marginTop:10,
-        height:40
-      }}
-      light
-      disabled={!request}
-      title="Login to Spotify"
-      onPress={() => {
-        promptAsync();
-        }}
-    />
+    <View>
+      <Text>ConnectSpotify </Text>
+      <Button onPress={signOut} title="signout">
+        Sign out
+      </Button>
+    </View>
   );
 }
