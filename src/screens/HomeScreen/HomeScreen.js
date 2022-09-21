@@ -2,20 +2,20 @@ import React from "react";
 import { Button, Text, View } from "react-native";
 import { getAuth } from "firebase/auth";
 import useAuth from "../../hooks/useAuth";
-import { writeUserData } from "../../hooks/useDb";
+import { writeUserName } from "../../hooks/writeDb";
 
 export default function HomeScreen(props) {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   return (
     <View>
-      <Text>Welcome to TuneLog </Text>
+      <Text>Welcome to TuneLog</Text>
       <Button onPress={signOut} title="signout">
         Sign out
       </Button>
       <Button
-        onPress={() => writeUserData(1, "swag", "swag")}
-        title="db"
+        onPress={() => writeUserName( "Digital Dog")}
+        title="set username"
       ></Button>
     </View>
   );

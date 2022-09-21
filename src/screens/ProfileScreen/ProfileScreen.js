@@ -6,14 +6,19 @@ import CustomButton from "../../components/CustomButton";
 import ProfileImage from "../../components/ProfileImage";
 import ProfileStatSnippet from "../../components/StatsComponents/ProfileStatSnippet";
 import CurrentMusicMoodComponent from "../../components/CurrentMusicMoodComponent";
+import useAuth from "../../hooks/useAuth";
+import { retriveAllUsers } from "../../hooks/writeDb";
 
-let name = "Aziz Zyzz";
+
+
 
 // Test commit
 const ProfileScreen = ({ navigation }) => {
+  const { user } = useAuth();
   return (
     <View style={styles.container}>
-      <ProfileImage image={zyzz} name={name} />
+      <ProfileImage image={zyzz} name={user.uid} />
+      <Button title="testButton" onPress={() => retriveAllUsers(user.uid)} ></Button>
 
       <CustomButton
         title="Edit Profile"
