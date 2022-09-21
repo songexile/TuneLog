@@ -7,7 +7,7 @@ import React from "react";
 export default function ProfileImage(props) {
   const { image, name } = props;
   return (
-    <View>
+    <View style={styles.styleContainer}>
       <Image style={styles.circleImage} source={image} />
       <Text style={styles.text}>{name}</Text>
     </View>
@@ -15,6 +15,10 @@ export default function ProfileImage(props) {
 }
 
 const styles = StyleSheet.create({
+  styleContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   circleImage: {
     width: 75,
     height: 75,

@@ -7,18 +7,14 @@ import ProfileImage from "../../components/ProfileImage";
 import ProfileStatSnippet from "../../components/StatsComponents/ProfileStatSnippet";
 import CurrentMusicMoodComponent from "../../components/CurrentMusicMoodComponent";
 import useAuth from "../../hooks/useAuth";
-import { retriveAllUsers } from "../../hooks/writeDb";
-
-
-
+import { useDisplayName } from "../../hooks/readDb";
 
 // Test commit
 const ProfileScreen = ({ navigation }) => {
-  const { user } = useAuth();
+  const username = useDisplayName();
   return (
     <View style={styles.container}>
-      <ProfileImage image={zyzz} name={user.uid} />
-      <Button title="testButton" onPress={() => retriveAllUsers(user.uid)} ></Button>
+      <ProfileImage image={zyzz} name={username} />
 
       <CustomButton
         title="Edit Profile"
@@ -26,7 +22,7 @@ const ProfileScreen = ({ navigation }) => {
       />
 
       <ProfileStatSnippet genre="Hyperpop" />
-      <CurrentMusicMoodComponent artist="Bladee" user="Aziz" song="Gluee" />
+      <CurrentMusicMoodComponent artist="Bladee" user={username} song="Gluee" />
       <CustomButton
         title="View stats"
         onPress={() => navigation.navigate("Stats")}
