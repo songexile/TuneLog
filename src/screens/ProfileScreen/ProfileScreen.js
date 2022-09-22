@@ -9,7 +9,7 @@ import CurrentMusicMoodComponent from "../../components/CurrentMusicMoodComponen
 import useAuth from "../../hooks/useAuth";
 import { useDisplayName } from "../../hooks/readDb";
 
-// Test commit
+// 
 const ProfileScreen = ({ navigation }) => {
   const username = useDisplayName();
   return (

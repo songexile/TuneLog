@@ -15,10 +15,7 @@ export default function HomeScreen(props) {
       <Button onPress={signOut} title="signout">
         Sign out
       </Button>
-      <Button
-        onPress={() => writeUserName(user.uid, "Aziz")}
-        title="set username"
-      ></Button>
+       
     </View>
   );
 }

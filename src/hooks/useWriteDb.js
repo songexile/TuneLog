@@ -1,9 +1,9 @@
 import { db } from "../model/config"; // import the db config
-import { get, ref, set, child } from "firebase/database";
+import { get, ref, set, child, update } from "firebase/database";
 import useAuth from "./useAuth";
 
 function writeUserName(userId, username) {
-  set(ref(db, "users/" + userId), {
+  update(ref(db, "users/" + userId), {
     username: username,
   });
 }
