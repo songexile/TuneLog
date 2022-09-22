@@ -8,12 +8,8 @@ const getTopTracks = async () => {
   const spotifyToken = getSpotifyToken();
   console.log("Getting access Token for TopSongs:", spotifyToken );
 
-  // const [songName, setSongName] = useState("");
-
   const api_url = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5";
-  // const api_url = "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=1&offset=5";
   
-  // console.log(api_url);
   try{
     const response = await axios.get(api_url, {
       headers: {
@@ -54,9 +50,7 @@ const StatsScreen = ({ navigation }) => {
   const [topArtist, setTopArtist] = useState([]);
   useEffect(() => {
       getTopTracks()
-      // getTopArtists()
       .then(setTopSong)
-      // .then(setTopArtist)
       .catch((error) => {
           console.log("Error getting top songs", error);
       })
