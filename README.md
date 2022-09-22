@@ -17,7 +17,7 @@
 - **IOS/Android compatible**
   - User able to use on both IOS and Android devices (although mainly tested on IOS).
 
-## Setup
+## How to setup the app
 - Recommended to use Visual Studio Code 1.70.2 and `powershell terminal` for running commands.
 - In order to set up the app and install all dependencies, clone the repository and run:
 ### ``yarn install``
