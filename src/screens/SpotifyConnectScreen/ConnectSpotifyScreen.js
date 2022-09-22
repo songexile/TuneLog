@@ -8,6 +8,7 @@ import { setSpotifyToken, getSpotifyToken } from "../../hooks/spotifyAuth";
 
 WebBrowser.maybeCompleteAuthSession();
 
+
 const ConnectSpotifyScreen = () => {
   const { signOut } = useAuth();
 
@@ -61,26 +62,17 @@ const ConnectSpotifyScreen = () => {
     }}>
 
       <Button
-        style={{
-        textAlign:'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft:40,
-        paddingRight:40,
-        marginTop:50,
-        height:40,
-        position: 'absolute',
-
-        }}
         light
         disabled={!request}
-        title="Login to Spotify"
+        title="Connect to Spotify"
         onPress={() => {
           promptAsync();
           }}
         
       />
-      <Button onPress={signOut} title="signout"></Button>
+      <Text>After authenticating, please sign out and sign back in!</Text>
+      <Button onPress={signOut} title="Sign out"></Button>
+      
     </View>
   )
 }
