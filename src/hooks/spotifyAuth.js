@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-const spotifyAuth = () => {
-  return (
-    <div>spotifyAuth</div>
-  )
+var spotifyToken = null;
+
+function setSpotifyToken(token) {
+  spotifyToken = token;
+  
 }
 
-export default spotifyAuth
+function getSpotifyToken() {
+  return spotifyToken;
+}
+
+export { setSpotifyToken, getSpotifyToken };

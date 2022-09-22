@@ -4,11 +4,13 @@ import * as WebBrowser from 'expo-web-browser';
 import { Button, Text, View } from "react-native";
 import { getAuth } from "firebase/auth";
 import useAuth from "../../hooks/useAuth";
+import { setSpotifyToken, getSpotifyToken } from "../../hooks/spotifyAuth";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const ConnectSpotifyScreen = () => {
   const { signOut } = useAuth();
+
   
   const discovery = {
     authorizationEndpoint: "https://accounts.spotify.com/authorize",
@@ -44,8 +46,12 @@ const ConnectSpotifyScreen = () => {
     if (response?.type === 'success') {
       const { access_token } = response.params;
       console.log("accessToken", access_token);
+      setSpotifyToken(access_token);
+      console.warn("Getting token: ", getSpotifyToken());
       }
   }, [response]);
+
+
 
   return (
     <View style={{
@@ -72,6 +78,7 @@ const ConnectSpotifyScreen = () => {
         onPress={() => {
           promptAsync();
           }}
+        
       />
       <Button onPress={signOut} title="signout"></Button>
     </View>
