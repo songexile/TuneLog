@@ -17,19 +17,8 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   const { user } = useAuth();
-  const spotifyToken = getSpotifyToken();
+  const spotifyToken = "null";
 
-  const initialState = "initial state";
-  const [state, changeState] = useState(initialState);
-
-  useEffect(() => {
-    if(state!==initialState){
-      window.location.reload()
-    }
-  }, [state]);
-  
-  // console.log("spotifyToken", spotifyToken);
-  
   return (
     <>
       {user && !spotifyToken ? (
