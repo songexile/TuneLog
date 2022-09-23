@@ -6,10 +6,12 @@ import { getSpotifyToken } from "../../hooks/spotifyAuth";
 const getTopTracks = async () => {
   //Getting spotify token
   const spotifyToken = getSpotifyToken();
-  console.log("Getting access Token for TopSongs:", spotifyToken );
+  // console.log("Getting access Token for TopSongs:", spotifyToken );
 
+  //API url to get top tracks, limit 5
   const api_url = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5";
   
+  //Using Axios to get the data from the API, using the token to authenticate
   try{
     const response = await axios.get(api_url, {
       headers: {
@@ -19,6 +21,7 @@ const getTopTracks = async () => {
 
     // console.log(response.data);
 
+    //Returning the top 5 tracks as an array
     return response.data.items;
   }catch(error){
     console.log(error);
@@ -28,23 +31,30 @@ const getTopTracks = async () => {
 const getTopArtists = async () => {
   //Getting spotify token
   const spotifyToken = getSpotifyToken();
-  console.log("Getting access Token for TopSongs:", spotifyToken );
+
+  //Console log for testing
+  // console.log("Getting access Token for TopSongs:", spotifyToken );
+
+  //API url to get top artists, limit 5
   const api_url = "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=5";
   
+  //Using Axios to get the data from the API, using the token to authenticate
   try{
     const response = await axios.get(api_url, {
       headers: {
         'Authorization': `Bearer ${spotifyToken}`
       }
     });
+    // console.log(response.data);
 
-    console.log(response.data);
+    //Returning the top 5 artists as an array
     return response.data.items;
   }catch(error){
+    //Catching error and logging to console
     console.log(error);
   }  
 };
-
+//Const for displaying the stats screen
 const StatsScreen = ({ navigation }) => {
   const [topSong, setTopSong] = useState([]);
   const [topArtist, setTopArtist] = useState([]);
@@ -52,17 +62,20 @@ const StatsScreen = ({ navigation }) => {
       getTopTracks()
       .then(setTopSong)
       .catch((error) => {
+        //Catching error and logging to console if there is one with retrieving the top tracks
           console.log("Error getting top songs", error);
       })
 
       getTopArtists()
       .then(setTopArtist)
       .catch((error) => {
+        //Catching error and logging to console if there is one with retrieving the top artists
           console.log("Error in getting top artists", error);
       })
 
   }, []);
 
+  //Page to be rendered
   return (
       <>
       <SafeAreaView style={styles.container}>
@@ -98,6 +111,7 @@ const StatsScreen = ({ navigation }) => {
   );
 };
 
+//Styles for the stats screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
