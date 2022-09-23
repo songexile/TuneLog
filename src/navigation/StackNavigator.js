@@ -6,6 +6,9 @@ import useAuth from "../hooks/useAuth";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import TabNavigator from "./TabNavigator";
 import ConnectSpotifyScreen from "../screens/SpotifyConnectScreen/ConnectSpotifyScreen";
+import { getSpotifyToken } from "../hooks/spotifyAuth";
+import { useEffect, useState } from "react";
+
 
 const Stack = createStackNavigator();
 // This class is the main navigator for the application.
@@ -15,7 +18,7 @@ const Stack = createStackNavigator();
 const StackNavigator = () => {
   const { user } = useAuth();
   const spotifyToken = "null";
-  
+
   return (
     <>
       {user && !spotifyToken ? (

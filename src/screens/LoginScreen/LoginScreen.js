@@ -9,8 +9,8 @@ import useAuth from "../../hooks/useAuth";
 
 export default function LoginScreen({ navigation }) {
   const { onLoginPress } = useAuth();
-  const [email, setEmail] = useState("therunningbeta@gmail.com"); //setting as temp state
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("raayhoworth@gmail.com"); //setting as temp state
+  const [password, setPassword] = useState("tunelog");
 
   const onFooterLinkPress = () => {
     navigation.navigate("Registration");
