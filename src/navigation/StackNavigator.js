@@ -16,8 +16,11 @@ const Stack = createStackNavigator();
 // When the user is authenticated, it will show the tab navigator. Tab navigator will implement main navigation for the application for the app
 
 const StackNavigator = () => {
+
   const { user } = useAuth();
+
   const spotifyToken = "null";
+  console.log("Spotify Token:", spotifyToken);
 
   return (
     <>
