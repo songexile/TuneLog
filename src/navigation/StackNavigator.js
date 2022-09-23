@@ -5,6 +5,10 @@ import { HomeScreen, LoginScreen, RegistrationScreen } from "../screens";
 import useAuth from "../hooks/useAuth";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import TabNavigator from "./TabNavigator";
+import ConnectSpotifyScreen from "../screens/SpotifyConnectScreen/ConnectSpotifyScreen";
+import { getSpotifyToken } from "../hooks/spotifyAuth";
+import { useEffect, useState } from "react";
+
 
 const Stack = createStackNavigator();
 // This class is the main navigator for the application.
@@ -13,15 +17,30 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   const { user } = useAuth();
+  const spotifyToken = getSpotifyToken();
+
+  const initialState = "initial state";
+  const [state, changeState] = useState(initialState);
+
+  useEffect(() => {
+    if(state!==initialState){
+      window.location.reload()
+    }
+  }, [state]);
+  
+  // console.log("spotifyToken", spotifyToken);
+  
   return (
     <>
-      {user ? (
+      {user && !spotifyToken ? (
+        <ConnectSpotifyScreen />
+      ) : user && spotifyToken ? (
         <TabNavigator />
       ) : (
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Registration" component={RegistrationScreen} />
-          <Stack.Screen
+           <Stack.Screen name="Login" component={LoginScreen} />
+           <Stack.Screen name="Registration" component={RegistrationScreen} />
+           <Stack.Screen
             name="ForgotPassword"
             component={ForgotPasswordScreen}
           />
