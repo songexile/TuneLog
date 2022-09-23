@@ -10,7 +10,7 @@ export default function CurrentMusicMoodComponent(props) {
       <Text style={styles.userText}>{username} is feeling...</Text>
       <Text style={styles.text}>
         {artist} - {song}
-      </Text>
+      </Text> 
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 
 import styles from "./styles"; //styles
@@ -11,8 +11,7 @@ const EditProfileScreen = ({ navigation }) => {
 
   const { user } = useAuth();
   return (
-    <View>
-      <Text>EditProfileScreen</Text>
+    <View styles = { styles.container}>
       
         <TextInput
           style={styles.input}
