@@ -25,6 +25,6 @@
 - You can then start the app by running:
 ### `yarn start`
 
-- From here, simply follow the expo instructions in the CLI in order to run the project in and IOS/Android environment.
+- From here, simply follow the expo instructions in the CLI in order to run the project in an IOS/Android environment.
 - **Please note, if you open the app using the QR code on another device, you must be on the same local area network as the machine running the app.**
 
