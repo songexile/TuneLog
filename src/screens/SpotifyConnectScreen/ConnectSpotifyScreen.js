@@ -7,15 +7,15 @@ import { View, Button, Text, StyleSheet, Image, SafeAreaView, TouchableOpacity }
 
 WebBrowser.maybeCompleteAuthSession();
 
+const ConnectSpotifyScreen = () => {
 
-const ConnectSpotifyScreen = ({navigation}) => {
-
+  //Getting hook for sign out button
   const { signOut } = useAuth();
   
+  //Spotify API information
   const discovery = {
     authorizationEndpoint: "https://accounts.spotify.com/authorize",
     tokenEndpoint: "https://accounts.spotify.com/api/token",
-
   }
 
   const [request, response, promptAsync] = useAuthRequest(
@@ -37,17 +37,17 @@ const ConnectSpotifyScreen = ({navigation}) => {
     discovery
   );
 
+  //Runs when page is opened, retrieves token from spotify and stores it
   React.useEffect(() => {
     if (response?.type === 'success') {
       const { access_token } = response.params;
-      console.log("accessToken", access_token);
+      // console.log("accessToken", access_token);
       setSpotifyToken(access_token);
-      console.warn("Getting token: ", getSpotifyToken());
       }
   }, [response]);
 
 
-
+  //Page to be rendered
   return (
     <SafeAreaView style={styles.container}>
       
@@ -81,6 +81,7 @@ const ConnectSpotifyScreen = ({navigation}) => {
   )
 }
 
+//Styling sheet for the page
 const styles = StyleSheet.create({
   container: {
     flex: 1,
