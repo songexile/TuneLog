@@ -5,6 +5,7 @@ import styles from "./styles"; //styles
 import useAuth from "../../hooks/useAuth";
 import { writeUserName } from "../../hooks/useWriteDb";
 
+//view for editing profile
 const EditProfileScreen = ({ navigation }) => {
 
   const [username, setUserName] = useState("");
@@ -13,6 +14,8 @@ const EditProfileScreen = ({ navigation }) => {
   return (
     <View styles = { styles.container}>
       
+      <Text style = { styles.title }> Edit Profile </Text>
+        
         <TextInput
           style={styles.input}
           placeholder="Username"
