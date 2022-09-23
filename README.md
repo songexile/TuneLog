@@ -1,6 +1,10 @@
 # TuneLog 
+
 - TuneLog is an app created in React Native. It allows users to sign up with their email and password to create an account.
 - The app uses the Spotify API and retrieves the users OAuth 2.0 token to retrieve and display Spotify statistics, such as Top Songs, Top Artists, etc.
+
+## Warning - This application requires a Spotify account as it heavily depends on the Spotify API for full useage. Without a Spotify account you can't access the app.
+
 
 ## List of completed/in-development features
 - **Login or create account**
@@ -16,6 +20,12 @@
   - Token updates when required.
 - **IOS/Android compatible**
   - User able to use on both IOS and Android devices (although mainly tested on IOS).
+  
+  ## Future features
+  - ** Music map
+    - In the future we plan on implementing a music map which can allow users to discover other people through music
+  - ** Listening party
+    - Users will be able to join other listening parties and sync up there music with other users
 
 ## How to setup the app
 - Recommended to use Visual Studio Code 1.70.2 and `powershell terminal` for running commands.
