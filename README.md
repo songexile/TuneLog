@@ -22,9 +22,9 @@
   - User able to use on both IOS and Android devices (although mainly tested on IOS).
   
   ## Future features
-  - ** Music map
+- **Music map**
     - In the future we plan on implementing a music map which can allow users to discover other people through music
-  - ** Listening party
+- **Listening party**
     - Users will be able to join other listening parties and sync up there music with other users
 
 ## How to setup the app
