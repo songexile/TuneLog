@@ -15,7 +15,6 @@ export default function HomeScreen(props) {
       <Button onPress={signOut} title="signout">
         Sign out
       </Button>
-       
     </View>
   );
 }

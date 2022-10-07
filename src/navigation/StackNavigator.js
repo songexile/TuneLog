@@ -16,7 +16,6 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   const { user } = useAuth();
-
   const { spotifyToken } = useAuth();
 
   console.warn(`rendering StackNavigator, user: ${user}`);
