@@ -66,18 +66,21 @@ const getTopArtists = async (spotifyToken) => {
 const StatsScreen = ({ navigation }) => {
   const [topSong, setTopSong] = useState([]);
   const [topArtist, setTopArtist] = useState([]);
-  const { spotifyToken } = useAuth();
+  const { spotifyToken, setSpotifyToken } = useAuth();
+
   useEffect(() => {
     getTopTracks(spotifyToken)
       .then(setTopSong)
       .catch((error) => {
         //Catching error and logging to console if there is one with retrieving the top tracks
         console.log("Error getting top songs", error);
+        setSpotifyToken(null);
       });
 
     getTopArtists(spotifyToken)
       .then(setTopArtist)
       .catch((error) => {
+        setSpotifyToken(null);
         //Catching error and logging to console if there is one with retrieving the top artists
         console.log("Error in getting top artists", error);
       });
