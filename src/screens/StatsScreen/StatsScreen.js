@@ -80,7 +80,7 @@ const StatsScreen = ({ navigation }) => {
     getTopArtists(spotifyToken)
       .then(setTopArtist)
       .catch((error) => {
-        setSpotifyToken(null);
+        setSpotifyToken(null); //setting token to null if there is an error
         //Catching error and logging to console if there is one with retrieving the top artists
         console.log("Error in getting top artists", error);
       });
