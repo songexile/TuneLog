@@ -14,6 +14,7 @@ export const AuthProvider = ({ children, navigation }) => {
   const [user, setUser] = useState(null); //user is initally null
   const [loadingInital, setLoadingInital] = useState(true); //loadingInital is initally true
   const [loading, setLoading] = useState(false); //loading is initally false
+  const [spotifyToken, setSpotifyToken] = useState(null);
 
   useEffect(() => {
     //This hook allows us to remember the user's login status
@@ -153,6 +154,8 @@ export const AuthProvider = ({ children, navigation }) => {
         signOut,
         loading,
         resetPassword,
+        spotifyToken,
+        setSpotifyToken,
       }}
     >
       {!loadingInital && children}
