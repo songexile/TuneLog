@@ -1,12 +1,11 @@
 import { db } from "../model/config"; // import the db config
 import { get, ref, child, update } from "firebase/database";
-import {DevSettings} from 'react-native';
+import { DevSettings } from "react-native";
 
 function writeUserName(userId, username) {
   update(ref(db, "users/" + userId), {
     username: username,
   });
- DevSettings.reload()
 }
 
 function retriveUserData(userId) {
@@ -23,4 +22,4 @@ function retriveUserData(userId) {
     });
 }
 
-export  { writeUserName ,retriveUserData };
+export { writeUserName, retriveUserData };
