@@ -14,16 +14,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FFFFFF",
+        "config": {
+          "googleMaps": {
+            "apiKey": "AIzaSyCXgrc6vW8MTjq8NsCSNNXbfC8Fc1usjR8"
+          }
+        }
       }
     },
     "web": {

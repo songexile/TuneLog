@@ -18,6 +18,9 @@ const StackNavigator = () => {
   const { user } = useAuth();
   const { spotifyToken } = useAuth();
 
+  console.warn(spotifyToken);
+  console.warn(user);
+
   return (
     <>
       {user && !spotifyToken ? (
