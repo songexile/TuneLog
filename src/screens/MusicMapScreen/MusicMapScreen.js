@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Dimensions } from "react-native";
 import React from "react";
 import MapView from "react-native-maps";
 
@@ -6,30 +6,22 @@ import MapView from "react-native-maps";
 
 const MusicMapScreen = ({ navigation }) => {
   return (
-    <View>
-      <MapView
-        style={styles.map}
-        //specify our coordinates.
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+    <View style={styles.container}>
+      <MapView style={styles.map} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    flex: 1, //the container will fill the whole screen.
-    justifyContent: "flex-end",
+    flex: 1,
+    backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "center",
   },
   map: {
-    ...StyleSheet.absoluteFillObject,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 });
 
