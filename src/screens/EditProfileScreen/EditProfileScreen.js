@@ -25,10 +25,7 @@ const EditProfileScreen = ({ navigation }) => {
       />
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#9D3BEA" }]} //TODO: change to global styles
-        onPress={() =>
-          writeUserName(user.uid, username) +
-          console.warn("New username :" + username)
-        }
+        onPress={() => writeUserName(user.uid, username)}
       >
         <Text style={styles.buttonTitle}>Change username</Text>
       </TouchableOpacity>
