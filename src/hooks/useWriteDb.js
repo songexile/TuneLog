@@ -1,10 +1,21 @@
 import { db } from "../model/config"; // import the db config
 import { get, ref, child, update } from "firebase/database";
-import { DevSettings } from "react-native";
+import { DevSettings, View } from "react-native";
 
 function writeUserName(userId, username) {
   // write the username to the db, if the name is already in the system, it will not be written
-  if (username == null) {
+  if (username == "") {
+    console.warn("username is null");
+    return;
+  }
+
+  if (username.length > 20) {
+    console.warn("username is too long");
+    return;
+  }
+
+  if (username.length < 3) {
+    console.warn("username is too short");
     return;
   }
   //check if username already exisits
@@ -15,7 +26,7 @@ function writeUserName(userId, username) {
       for (const user in users) {
         if (users[user].username == username) {
           console.warn("username already exists");
-          return;
+          return false;
         }
       }
       update(ref(db, "users/" + userId), {
