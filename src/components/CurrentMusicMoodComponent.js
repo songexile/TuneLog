@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useFeelingMood, useDisplayName } from "../hooks/readDb";
 
 export default function CurrentMusicMoodComponent(props) {
-  const { song, artist, user } = props;
+  const [artist, song] = useFeelingMood();
   return (
     <View style={styles.bubbleContainer}>
-      <Text style={styles.userText}>{user} is feeling...</Text>
+      <Text style={styles.userText}>{props.userName} is feeling...</Text>
       <Text style={styles.text}>
         {artist} - {song}
       </Text>

@@ -9,7 +9,6 @@ import ConnectSpotifyScreen from "../screens/SpotifyConnectScreen/ConnectSpotify
 import { getSpotifyToken } from "../hooks/spotifyAuth";
 import { useEffect, useState } from "react";
 
-
 const Stack = createStackNavigator();
 // This class is the main navigator for the application.
 // When the user is not authenticated, it will show the login screen, registration screen, and forgot password screen (stack).
@@ -17,19 +16,11 @@ const Stack = createStackNavigator();
 
 const StackNavigator = () => {
   const { user } = useAuth();
-  const spotifyToken = getSpotifyToken();
+  const { spotifyToken } = useAuth();
 
-  const initialState = "initial state";
-  const [state, changeState] = useState(initialState);
+  console.warn(spotifyToken);
+  console.warn(user);
 
-  useEffect(() => {
-    if(state!==initialState){
-      window.location.reload()
-    }
-  }, [state]);
-  
-  // console.log("spotifyToken", spotifyToken);
-  
   return (
     <>
       {user && !spotifyToken ? (
@@ -38,9 +29,9 @@ const StackNavigator = () => {
         <TabNavigator />
       ) : (
         <Stack.Navigator>
-           <Stack.Screen name="Login" component={LoginScreen} />
-           <Stack.Screen name="Registration" component={RegistrationScreen} />
-           <Stack.Screen
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Registration" component={RegistrationScreen} />
+          <Stack.Screen
             name="ForgotPassword"
             component={ForgotPasswordScreen}
           />
