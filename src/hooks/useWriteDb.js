@@ -4,6 +4,7 @@ import { DevSettings, View } from "react-native";
 
 function writeUserName(userId, username) {
   // write the username to the db, if the name is already in the system, it will not be written
+
   if (username == "") {
     console.warn("username is null");
     return;
@@ -20,20 +21,25 @@ function writeUserName(userId, username) {
   }
   //check if username already exisits
   //check if username exists in firebase
+  const usernameExists = usernameExist(username);
+  console.warn(username + " : " + usernameExists);
+  update(ref(db, "users/" + userId), {
+    username: username,
+  });
+}
+
+function usernameExist(username) {
+  //boolean function to check if username exists in the db
+
   get(child(ref(db), "users/")).then((snapshot) => {
     if (snapshot.exists()) {
       const users = snapshot.val();
       for (const user in users) {
-        if (users[user].username == username) {
-          console.warn("username already exists");
-          return false;
-        }
+        if (users[user].username == username) return true;
       }
-      update(ref(db, "users/" + userId), {
-        username: username,
-      });
     }
   });
+  return false;
 }
 
 function retriveUserData(userId) {
@@ -50,4 +56,4 @@ function retriveUserData(userId) {
     });
 }
 
-export { writeUserName, retriveUserData };
+export { writeUserName, retriveUserData, usernameExist };
