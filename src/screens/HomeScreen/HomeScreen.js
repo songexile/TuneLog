@@ -29,6 +29,7 @@ const getCurrentlyListening = async (spotifyToken) => {
     });
     console.log(response.data);
 
+    //Storing the data in a variables
     const song = response.data;
     const albumImageUri = song.item.album.images[0].url;
     const artist = song.item.artists.map((_artist) => _artist.name).join(", ");
