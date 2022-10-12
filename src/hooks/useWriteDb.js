@@ -1,8 +1,9 @@
 import { db } from "../model/config"; // import the db config
 import { get, ref, child, update } from "firebase/database";
 import { DevSettings, View } from "react-native";
+import { async } from "@firebase/util";
 
-function writeUserName(userId, username) {
+async function writeUserName(userId, username) {
   // write the username to the db, if the name is already in the system, it will not be written
 
   if (username == "") {
@@ -21,25 +22,73 @@ function writeUserName(userId, username) {
   }
   //check if username already exisits
   //check if username exists in firebase
-  const usernameExists = usernameExist(username);
-  console.warn(username + " : " + usernameExists);
-  update(ref(db, "users/" + userId), {
-    username: username,
-  });
+  const usernameExists = await userNameExist(username);
+
+  if (!usernameExists) {
+    update(ref(db, "users/" + userId), {
+      username: username,
+    });
+  }
+  return; //if username exist we just return
 }
 
-function usernameExist(username) {
-  //boolean function to check if username exists in the db
-
-  get(child(ref(db), "users/")).then((snapshot) => {
+const userNameExist = async (username, userId) => {
+  const exist = await get(child(ref(db), "users/")).then((snapshot) => {
     if (snapshot.exists()) {
       const users = snapshot.val();
       for (const user in users) {
-        if (users[user].username == username) return true;
+        if (users[user].username == username) {
+          return true;
+        }
       }
     }
   });
-  return false;
+  return exist != undefined ? exist : false; //if username exist return true else return false
+};
+
+async function followUser(username, userId) {
+  //follow user
+  //check if username exists in firebase
+
+  //this code checks if username exist
+  //checks if user (you) is already following the user
+  //if not then it will add to there followers list
+  //and you will be following that user
+  const exist = await get(child(ref(db), "users/"))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const users = snapshot.val();
+        for (const user in users) {
+          if (users[user].username == username) {
+            if (users[user].followers == userId) {
+              console.warn("you are already following this user");
+              //if user already follows the user
+              return;
+            }
+            //add user to followers
+            update(ref(db, "users/" + user), {
+              //update the user that is being followed, you are now following the user
+              followers: userId,
+              //add followers
+
+              //add to followers list
+            });
+            update(ref(db, "users/" + userId), {
+              //update the user that is following, you are now followed by the user
+              following: user,
+            });
+          } else {
+            console.warn("user does not exist");
+          }
+        }
+      }
+
+      return false;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  const user = exist;
 }
 
 function retriveUserData(userId) {
@@ -56,4 +105,4 @@ function retriveUserData(userId) {
     });
 }
 
-export { writeUserName, retriveUserData, usernameExist };
+export { writeUserName, retriveUserData, userNameExist, followUser };

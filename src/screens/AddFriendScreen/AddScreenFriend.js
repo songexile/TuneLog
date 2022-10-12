@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import styles from "./styles"; //styles
 import useAuth from "../../hooks/useAuth";
-import { writeUserName } from "../../hooks/useWriteDb";
+import { followUser, writeUserName } from "../../hooks/useWriteDb";
 
 //view for editing profile
 const AddFriendScreen = ({ navigation }) => {
@@ -23,11 +23,12 @@ const AddFriendScreen = ({ navigation }) => {
         underlineColorAndroid="transparent"
         autoCapitalize="none"
       />
+
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#9D3BEA" }]} //TODO: change to global styles
-        onPress={() => writeUserName(user.uid, username)}
+        onPress={() => followUser(username, user.uid)}
       >
-        <Text style={styles.buttonTitle}>Change username</Text>
+        <Text style={styles.buttonTitle}>Follow user</Text>
       </TouchableOpacity>
     </View>
   );
