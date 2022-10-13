@@ -11,8 +11,10 @@ import {
   Button,
   SafeAreaView,
   ScrollView,
+  Image,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import CurrentSongImage from "../../components/CurrentSongImage";
 
 const getCurrentlyListening = async (spotifyToken) => {
   //Getting spotify token
@@ -40,6 +42,7 @@ const getCurrentlyListening = async (spotifyToken) => {
 
     //Returning the top 5 artists as an array
     return {albumImageUri, artist, isPlaying, songUrl, trackName};
+    // return {trackName};
   } catch (error) {
     //Catching error and logging to console
     console.log(error);
@@ -66,9 +69,19 @@ const ConnectSpotifyScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <View>
+        <View style={styles.container}>
           <View style={styles.headerButton}>
             <Text style={styles.textHeader}>{name}'s Home Page</Text>
+          </View>
+          
+          <Text>Currently Listening to:</Text>
+          <View style={styles.button}>
+            {console.log(currentlyListening)}
+            <Text style={styles.bodyTextHeader}>{currentlyListening.trackName}</Text>
+            <Text style={styles.bodyText}>{currentlyListening.artist}</Text>
+            <View style={styles.albumImage}>
+              <Image source={currentlyListening.albumImageUri} />
+            </View>
           </View>
           <Button onPress={signOut} title="Sign Out">
             Sign out
@@ -105,7 +118,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
+  bodyTextHeader: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "left",
+  },
+
+  bodyText: {
+    textAlign: "left",
+    fontSize: 15,
+  },
+
   centreItem: {
+    alignItems: "center",
+  },
+
+  albumImage: {
+    width: 25,
+    height: 25,
     alignItems: "center",
   },
 });
