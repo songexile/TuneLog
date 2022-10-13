@@ -57,10 +57,10 @@ function TabNavigator() {
         tabBarActiveTintColor: "tomato",
       })}
     >
+      <Tab.Screen name="Settings" component={SettingNavigator} />
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="MusicMap" component={MusicMapScreen} />
       <Tab.Screen name="Profile" component={ProfileNavigator} />
-      <Tab.Screen name="Settings" component={SettingNavigator} />
     </Tab.Navigator>
   );
 }

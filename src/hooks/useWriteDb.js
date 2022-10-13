@@ -1,5 +1,5 @@
 import { db } from "../model/config"; // import the db config
-import { get, ref, child, update } from "firebase/database";
+import { get, ref, child, update, set } from "firebase/database";
 import { DevSettings, View } from "react-native";
 import { async } from "@firebase/util";
 
@@ -38,7 +38,7 @@ const userNameExist = async (username, userId) => {
       const users = snapshot.val();
       for (const user in users) {
         if (users[user].username == username) {
-          return true;
+          return true; //if user name exist
         }
       }
     }
@@ -47,48 +47,27 @@ const userNameExist = async (username, userId) => {
 };
 
 async function followUser(username, userId) {
-  //follow user
-  //check if username exists in firebase
+  const exist = await get(child(ref(db), "users/")).then((snapshot) => {
+    //check if user exists
+    if (snapshot.exists()) {
+      const users = snapshot.val();
+      for (const user in users) {
+        if (users[user].username == username) {
+          update(ref(db, "users/" + userId + "/following/" + user), {
+            //this stores that user in your following tab
+            time: Date.now(),
+          }).then(() => {
+            console.warn("user added to following list");
+          });
 
-  //this code checks if username exist
-  //checks if user (you) is already following the user
-  //if not then it will add to there followers list
-  //and you will be following that user
-  const exist = await get(child(ref(db), "users/"))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const users = snapshot.val();
-        for (const user in users) {
-          if (users[user].username == username) {
-            if (users[user].followers == userId) {
-              console.warn("you are already following this user");
-              //if user already follows the user
-              return;
-            }
-            //add user to followers
-            update(ref(db, "users/" + user), {
-              //update the user that is being followed, you are now following the user
-              followers: userId,
-              //add followers
-
-              //add to followers list
-            });
-            update(ref(db, "users/" + userId), {
-              //update the user that is following, you are now followed by the user
-              following: user,
-            });
-          } else {
-            console.warn("user does not exist");
-          }
+          update(ref(db, "users/" + user + "/followers/" + userId), {
+            //this stores you in the users followers tab
+            time: Date.now(),
+          });
         }
       }
-
-      return false;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  const user = exist;
+    }
+  });
 }
 
 function retriveUserData(userId) {
