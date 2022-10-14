@@ -70,6 +70,65 @@ async function followUser(username, userId) {
   });
 }
 
+const unfollowUser = (username, userId) => {
+  for (const user in users) {
+    if (users[user].username == username) {
+      remove(ref(db, "users/" + userId + "/following/" + user));
+      remove(ref(db, "users/" + user + "/followers/" + userId));
+    }
+  }
+};
+
+const getUsernameFromId = async (userId) => {
+  //this returns there username from the main id of the user
+  get(child(ref(db), "users/" + userId))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const username = snapshot.val().username;
+        return username;
+      } else {
+        console.log("No data available");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+const returnFollowingUsername = async (userId) => {
+  //this returns the username of the people you are following
+  const usernames = [];
+
+  ids = returnFollowing(userId);
+
+  for (const usernames in ids) {
+    const thisusername = await getUsernameFromId(usernames);
+    usernames.push(thisusername);
+    return usernames;
+  }
+};
+
+const returnFollowing = async (userId) => {
+  //go through db and return all the users that the user is following, not that this returns the ids not the nicknames
+
+  const following = await get(child(ref(db), "users/" + userId + "/following/"))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        //go through each snapshot and return the username
+        //for loop through snapshot
+        const following = [];
+        for (const user in snapshot.val()) {
+          following.push(user);
+        }
+        return following;
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  return usernames;
+};
+
 function retriveUserData(userId) {
   get(child(ref(db), "users/"))
     .then((snapshot) => {
@@ -84,4 +143,12 @@ function retriveUserData(userId) {
     });
 }
 
-export { writeUserName, retriveUserData, userNameExist, followUser };
+export {
+  writeUserName,
+  retriveUserData,
+  userNameExist,
+  followUser,
+  returnFollowing,
+  unfollowUser,
+  returnFollowingUsername,
+};

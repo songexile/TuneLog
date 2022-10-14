@@ -3,6 +3,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import SettingScreen from "../screens/SettingScreen/SettingScreen";
 import AddFriendScreen from "../screens/AddFriendScreen/AddScreenFriend";
+import RemoveFriendScreen from "../screens/RemoveFriendScreen/RemoveFriendScreen";
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ const SettingNavigator = () => {
         component={SettingScreen}
       />
       <Stack.Screen name="AddFriend" component={AddFriendScreen} />
+      <Stack.Screen name="RemoveFriend" component={RemoveFriendScreen} />
     </Stack.Navigator>
   );
 };

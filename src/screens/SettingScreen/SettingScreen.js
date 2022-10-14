@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import CustomButton from "../../components/CustomButton";
+import FollowerList from "../../components/FollowerList";
 
 const SettingScreen = ({ navigation }) => {
   return (
@@ -9,6 +10,11 @@ const SettingScreen = ({ navigation }) => {
         title="Add friend"
         onPress={() => navigation.navigate("AddFriend")}
       />
+      <CustomButton
+        title="Remove friend"
+        onPress={() => navigation.navigate("RemoveFriend")}
+      />
+      <FollowerList />
     </View>
   );
 };
