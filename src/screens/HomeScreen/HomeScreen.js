@@ -1,7 +1,7 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useCallback } from "react";
 import { getAuth } from "firebase/auth";
 import useAuth from "../../hooks/useAuth";
-import { writeUserName } from "../../hooks/useWriteDb";
+import { storeCurrentSong } from "../../hooks/useWriteDb";
 import { useDisplayName } from "../../hooks/readDb";
 import axios from "axios";
 import {
@@ -17,8 +17,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import CurrentSongImage from "../../components/CurrentSongImage";
 
 const getCurrentlyListening = async (spotifyToken) => {
-  //Getting spotify token
-
   //API url to get users currently litening to
   const api_url = "https://api.spotify.com/v1/me/player/currently-playing";
 
@@ -29,7 +27,6 @@ const getCurrentlyListening = async (spotifyToken) => {
         Authorization: `Bearer ${spotifyToken}`,
       },
     });
-    console.log(response.data);
 
     //Storing the data in a variables
     const song = response.data;
@@ -39,7 +36,9 @@ const getCurrentlyListening = async (spotifyToken) => {
     const songUrl = song.item.external_urls.spotify;
     const trackName = song.item.name;
 
-
+    console.log("Current Track:", trackName);
+    console.log("Artist:", artist);
+    
     //Returning the top 5 artists as an array
     return {albumImageUri, artist, isPlaying, songUrl, trackName};
     // return {trackName};
@@ -49,21 +48,27 @@ const getCurrentlyListening = async (spotifyToken) => {
   }
 };
 
-const ConnectSpotifyScreen = () => {
+const HomeScreen = () => {
   const { signOut, user } = useAuth();
   const name = useDisplayName();
   const { spotifyToken } = useAuth();
   const [currentlyListening, setCurrentlyListening] = useState([]);
 
-  useEffect(() => {
-    getCurrentlyListening(spotifyToken) //run function
+
+  useFocusEffect(
+    useCallback(() => {
+      getCurrentlyListening(spotifyToken) //run function
       .then(setCurrentlyListening)
-      .catch((error) => {
-        setSpotifyToken(null); //setting token to null if there is an error
-        //Catching error and logging to console if there is one with retrieving the top artists
-        console.log("Error in getting currently listening to", error);
-      });
-  }, []);
+      // .then(console.log('Changing song to:', currentlyListening.trackName))
+      // .then(storeCurrentSong(user.uid, currentlyListening.trackName, currentlyListening.artist))
+      // .catch((error) => {
+      //   setSpotifyToken(null); //setting token to null if there is an error
+      //   //Catching error and logging to console if there is one with retrieving the top artists
+      //   console.log("Error in getting currently listening to", error);
+      console.log('Changing song to:', currentlyListening.trackName)
+      storeCurrentSong(user.uid, currentlyListening.trackName, currentlyListening.artist)
+    }, [])
+  );
 
 
   return (
@@ -140,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ConnectSpotifyScreen;
+export default HomeScreen;
