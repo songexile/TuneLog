@@ -2,8 +2,10 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import CustomButton from "../../components/CustomButton";
 import FollowerList from "../../components/FollowerList";
+import useAuth from "../../hooks/useAuth";
 
 const SettingScreen = ({ navigation }) => {
+  const { user } = useAuth();
   return (
     <View style={styles.container}>
       <CustomButton
@@ -14,7 +16,7 @@ const SettingScreen = ({ navigation }) => {
         title="Remove friend"
         onPress={() => navigation.navigate("RemoveFriend")}
       />
-      <FollowerList />
+      <FollowerList userId={user.uid} unfollow={true} />
     </View>
   );
 };

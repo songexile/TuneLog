@@ -1,5 +1,5 @@
 import { db } from "../model/config"; // import the db config
-import { get, ref, child, update, set } from "firebase/database";
+import { get, ref, child, update, set, remove } from "firebase/database";
 import { DevSettings, View } from "react-native";
 import { async } from "@firebase/util";
 

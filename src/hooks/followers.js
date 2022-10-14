@@ -1,6 +1,6 @@
 //used to display followers and following
 import { db } from "../model/config"; // import the db config
-import { get, ref, child, update, set } from "firebase/database";
+import { get, ref, child, update, set, remove } from "firebase/database";
 export const getUsernameFromId = async (userId) => {
   //this returns there username from the main id of the user
   const username = await get(child(ref(db), "users/" + userId))
@@ -49,14 +49,23 @@ export const returnFollowing = async (userId) => {
 export const getAllUsernames = async (userId) => {
   const ids = await returnFollowing(userId);
   const usernames = [];
+  var jsonArr = [];
 
   //  console.log(ids);
 
   for (const id in ids) {
     const name = await getUsernameFromId(ids[id]);
-    usernames.push(name);
+    jsonArr.push({ id: ids[id], name: name });
+    //  usernames.push(name);
   }
-  console.log(usernames);
+  // console.log(usernames);
+  // console.log(jsonArr);
+  //console.log(jsonArr);
+  return jsonArr;
+};
 
-  return usernames;
+export const unfollowUser = async (yourUserId, thereUserId) => {
+  //update the db
+  remove(ref(db, "users/" + yourUserId + "/following/" + thereUserId)); //removes you from following them
+  remove(ref(db, "users/" + thereUserId + "/followers/" + yourUserId)); //removes you for there follower list
 };
