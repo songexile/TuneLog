@@ -78,15 +78,22 @@ const HomeScreen = () => {
           <View style={styles.headerButton}>
             <Text style={styles.textHeader}>{name}'s Home Page</Text>
           </View>
-          
           <Text>Currently Listening to:</Text>
+          <View>
+            
+          </View>
           <View style={styles.button}>
             {console.log(currentlyListening)}
             <Text style={styles.bodyTextHeader}>{currentlyListening.trackName}</Text>
             <Text style={styles.bodyText}>{currentlyListening.artist}</Text>
-            <View style={styles.albumImage}>
-              <Image source={currentlyListening.albumImageUri} />
+            <View>
+              <Image
+              style={{width: '100%', height: '100%', height: 100, width: 100, margin: 10}}
+              source={{uri: currentlyListening.albumImageUri}}
+              />
             </View>
+
+
           </View>
           <Button onPress={signOut} title="Sign Out">
             Sign out
@@ -103,6 +110,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
+    width: "100%",
+    // height: "30%",
     alignItems: "center",
     backgroundColor: "#D3A8F6",
     color: "white",
