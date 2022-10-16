@@ -22,7 +22,9 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying }) => {
       setLoading(true);
       getAllUsernames(userId).then((usernames) => {
         setFollowing(usernames);
+        console.log("------------------");
         console.log(following);
+        console.log("------------------");
         setLoading(false);
       });
     }, [])
@@ -31,26 +33,37 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying }) => {
   if (loading) {
     return <Text>Loading...</Text>;
   }
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Following</Text>
-      {following.map((user) => {
-        return (
-          <View style={styles.user}>
-            <Text style={styles.username}>{user.name}</Text>
-            {unfollow && (
+
+  if (following.length == 0) {
+    return <Text>You are not following anyone</Text>;
+  }
+
+  if (following.length > 0) {
+    return (
+      <View style={styles.container}>
+        {following.map((user) => {
+          return (
+            <View style={styles.button}>
               <Button
-                title="Unfollow"
-                onPress={() =>
-                  unfollowUser(userId, user.id) + console.log(user.id)
-                }
+                title={"user :" + user.name}
+                onPress={() => {
+                  openProfile(user.id); //this not done yet
+                }}
               />
-            )}
-          </View>
-        );
-      })}
-    </View>
-  );
+              {unfollow && (
+                <Button
+                  title="Unfollow"
+                  onPress={() => {
+                    unfollowUser(userId, user.id);
+                  }}
+                />
+              )}
+            </View>
+          );
+        })}
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

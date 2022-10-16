@@ -61,6 +61,7 @@ export const getAllUsernames = async (userId) => {
   // console.log(usernames);
   // console.log(jsonArr);
   //console.log(jsonArr);
+
   return jsonArr;
 };
 
@@ -68,4 +69,5 @@ export const unfollowUser = async (yourUserId, thereUserId) => {
   //update the db
   remove(ref(db, "users/" + yourUserId + "/following/" + thereUserId)); //removes you from following them
   remove(ref(db, "users/" + thereUserId + "/followers/" + yourUserId)); //removes you for there follower list
+  console.warn("unfollowed");
 };
