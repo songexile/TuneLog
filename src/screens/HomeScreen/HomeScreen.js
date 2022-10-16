@@ -70,6 +70,7 @@ const HomeScreen = () => {
     }, [])
   );
 
+  //Will still have errors when nothing is playing - NEEDS FIXING
 
   return (
     <SafeAreaView style={styles.container}>
