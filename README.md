@@ -50,3 +50,12 @@ From here, simply follow the expo instructions in the CLI in order to run the pr
     - In the future we plan on implementing a music map which can allow users to discover other people through music
 - **Listening party**
     - Users will be able to join other listening parties and sync up there music with other users
+
+
+## Authors
+
+This project was created by Ray Howorth, Otis Wales and Elan McInerney
+If you have any issues or bugs please open a thread in the issues section on GitHub.
+
+
+
