@@ -34,5 +34,5 @@ function storeCurrentSong(userId, trackName, artist) {
   });
 }
 
-export { writeUserName, retriveUserData, storeCurrentSong, writeProfilePic };
+export { writeUserName, retriveUserData, storeCurrentSong, writeProfilePicture };
 
