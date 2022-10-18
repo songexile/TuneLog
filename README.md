@@ -31,7 +31,7 @@ You can follow other users to keep up to date with their music and things they h
     - Users will be able to join other listening parties and sync up there music with other users
 
 ## Installation
-- Recommended to use Visual Studio Code 1.70.2 and `powershell terminal` for running commands.
+Recommended to use Visual Studio Code 1.70.2 and `powershell terminal` for running commands.
 In order to set up the app and install all dependencies, clone the repository and run:
  ```bash
  yarn install
