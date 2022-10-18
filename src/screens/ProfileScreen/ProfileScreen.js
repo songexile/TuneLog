@@ -13,7 +13,7 @@ import { db } from "../../model/config";
 import { useFocusEffect } from "@react-navigation/native";
 
 //
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation, viewingId }) => {
   const [userName, setUsername] = useState("");
   const { user } = useAuth();
   const userId = user.uid;

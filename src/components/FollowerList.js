@@ -11,7 +11,7 @@ import { useFocusEffect } from "@react-navigation/native";
 
 //FollowerList is a React component that will be used in the followerlist and also has another use case of being used on the home screen when displaying who the user is following
 
-const FollowerList = ({ userId, unfollow, currentlyPlaying }) => {
+const FollowerList = ({ userId, unfollow, currentlyPlaying, navigation }) => {
   const [following, setFollowing] = useState({});
 
   const [loading, setLoading] = useState(false); //loading state
@@ -47,7 +47,12 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying }) => {
               <Button
                 title={"user :" + user.name}
                 onPress={() => {
-                  openProfile(user.id); //this not done yet
+                  navigation.navigate("ViewUser", {
+                    viewingId: user.id,
+                  });
+
+                  //open up the profile of the user that is being followed
+                  //ProfileScreen open that with props of the user id
                 }}
               />
               {unfollow && (

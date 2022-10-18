@@ -16,7 +16,12 @@ const SettingScreen = ({ navigation }) => {
         title="Remove friend"
         onPress={() => navigation.navigate("RemoveFriend")}
       />
-      <FollowerList userId={user.uid} unfollow={true} />
+      <FollowerList
+        userId={user.uid}
+        unfollow={true}
+        //pass navigation as a prop to the FollowerList component
+        navigation={navigation}
+      />
     </View>
   );
 };
