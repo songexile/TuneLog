@@ -1,8 +1,8 @@
 # TuneLog 
 
-- TuneLog is an app created in React Native. It allows users to sign up with their email and password to create an account.
-- The app uses the Spotify API and retrieves the users OAuth 2.0 token to retrieve and display Spotify statistics, such as Top Songs, Top Artists, etc.
-- You can follow other users to keep up to date with their music and things they have personalised on their profile!
+TuneLog is an app created in React Native. It allows users to sign up with their email and password to create an account.
+The app uses the Spotify API and retrieves the users OAuth 2.0 token to retrieve and display Spotify statistics, such as Top Songs, Top Artists, etc.
+You can follow other users to keep up to date with their music and things they have personalised on their profile!
 
 ## Warning - This application requires a Spotify account as it heavily depends on the Spotify API for full useage. Without a Spotify account you can't access the app.
 
@@ -32,15 +32,15 @@
 
 ## Installation
 - Recommended to use Visual Studio Code 1.70.2 and `powershell terminal` for running commands.
-- In order to set up the app and install all dependencies, clone the repository and run:
+In order to set up the app and install all dependencies, clone the repository and run:
  ```bash
  yarn install
  ```
 
-- You can then start the app by running:
+You can then start the app by running:
 ```bash
  yarn start
  ```
 
-- From here, simply follow the expo instructions in the CLI in order to run the project in an IOS/Android environment.
-- **Please note, if you open the app using the QR code on another device, you must be on the same local area network as the machine running the app.**
+From here, simply follow the expo instructions in the CLI in order to run the project in an IOS/Android environment.
+**Please note, if you open the app using the QR code on another device, you must be on the same local area network as the machine running the app.**
