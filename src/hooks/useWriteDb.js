@@ -8,6 +8,12 @@ function writeUserName(userId, username) {
   });
 }
 
+function writeProfilePicture(userId, profilePicture) {
+  update(ref(db, "users/" + userId), {
+    profilePicture: profilePicture,
+  });
+}
+
 function retriveUserData(userId) {
   get(child(ref(db), "users/"))
     .then((snapshot) => {
@@ -28,4 +34,5 @@ function storeCurrentSong(userId, trackName, artist) {
   });
 }
 
-export { writeUserName, retriveUserData, storeCurrentSong };
+export { writeUserName, retriveUserData, storeCurrentSong, writeProfilePic };
+
