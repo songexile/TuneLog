@@ -43,7 +43,7 @@ const ConnectSpotifyScreen = () => {
       ],
 
       usePKCE: false,
-      redirectUri: "exp://172.20.10.13:19001",
+      redirectUri: "exp://10.0.0.63:19000",
     },
     discovery
   );
