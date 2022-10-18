@@ -8,6 +8,12 @@ function writeUserName(userId, username) {
   });
 }
 
+function writeProfilePicture(userId, profilePicture) {
+  update(ref(db, "users/" + userId), {
+    profilePicture: profilePicture,
+  });
+}
+
 function retriveUserData(userId) {
   get(child(ref(db), "users/"))
     .then((snapshot) => {
@@ -22,4 +28,4 @@ function retriveUserData(userId) {
     });
 }
 
-export { writeUserName, retriveUserData };
+export { writeUserName, writeProfilePicture, retriveUserData };
