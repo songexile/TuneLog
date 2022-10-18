@@ -70,6 +70,7 @@ async function followUser(username, userId) {
   });
 }
 
+
 const unfollowUser = (username, userId) => {
   for (const user in users) {
     if (users[user].username == username) {
@@ -129,6 +130,13 @@ const returnFollowing = async (userId) => {
   return usernames;
 };
 
+function writeProfilePicture(userId, profilePicture) {
+  update(ref(db, "users/" + userId), {
+    profilePicture: profilePicture,
+  });
+}
+
+
 function retriveUserData(userId) {
   get(child(ref(db), "users/"))
     .then((snapshot) => {
@@ -142,6 +150,7 @@ function retriveUserData(userId) {
       console.error(error);
     });
 }
+
 
 function storeTopArtist(userId, topartist) {
   //this stores the stats of the user
@@ -160,6 +169,12 @@ function storeTopTracks(userId, toptracks) {
   );
 }
 
+function storeCurrentSong(userId, trackName, artist) {
+  update(ref(db, "users/" + userId), {
+    currentSong: trackName + " by " + artist,
+  });
+}
+
 export {
   writeUserName,
   retriveUserData,
@@ -170,4 +185,12 @@ export {
   returnFollowingUsername,
   storeTopArtist,
   storeTopTracks,
+  storeCurrentSong,
+  writeProfilePicture
 };
+
+
+
+
+
+
