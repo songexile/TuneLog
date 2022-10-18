@@ -31,13 +31,15 @@ const ConnectSpotifyScreen = () => {
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
-      clientId: "77ad5d9af57544efb47d869a68fdd7ae",
-      clientSecret: "cd3457a56252441292f38047312221a6",
+      clientId: "ecf0bbd85d8c4456a8551dc30224ee83",
+      clientSecret: "04d9b1dd0c5d4a9b92898b0c8dde5bb5",
+
       scopes: [
         "user-read-recently-played",
         "user-top-read",
         "user-read-email",
         "user-read-private",
+        "user-read-currently-playing"
       ],
 
       usePKCE: false,
