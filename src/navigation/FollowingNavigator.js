@@ -7,6 +7,7 @@ import EditProfileScreen from "../screens/EditProfileScreen/EditProfileScreen";
 import SettingScreen from "../screens/SettingScreen/SettingScreen";
 import AddFriendScreen from "../screens/AddFriendScreen/AddScreenFriend";
 import ViewUserScreen from "../screens/ViewUserScreen/ViewUserScreen";
+import HomeScreen from "../screens/HomeScreen/HomeScreen";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,7 @@ const FollowingNavigator = () => {
       <Stack.Screen
         options={{ headerShown: false }}
         name="FollowingList"
-        component={SettingScreen}
+        component={HomeScreen}
       />
       <Stack.Screen name="ViewUser" component={ViewUserScreen} />
       <Stack.Screen name="AddFriend" component={AddFriendScreen} />

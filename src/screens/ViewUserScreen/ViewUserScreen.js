@@ -9,11 +9,15 @@ import CustomButton from "../../components/CustomButton";
 import ProfileImage from "../../components/ProfileImage";
 import ProfileStatSnippet from "../../components/StatsComponents/ProfileStatSnippet";
 import CurrentMusicMoodComponent from "../../components/CurrentMusicMoodComponent";
+import { hi, retrieveImage, retrieveImageUrl } from "../../hooks/useWriteDb";
 
 const ViewUserScreen = ({ route, navigator }) => {
   const { viewingId } = route.params;
   const [username, setUsername] = useState("User");
   const [loading, setLoading] = useState(true);
+  const [profilePicture, setProfilePicture] = useState(
+    "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+  );
 
   if (viewingId) {
     useFocusEffect(
@@ -24,8 +28,15 @@ const ViewUserScreen = ({ route, navigator }) => {
           } else {
             setUsername("not found");
           }
-          setLoading(false);
         });
+        get(child(ref(db), "users/" + viewingId + "/imageUrl")).then(
+          (snapshot) => {
+            if (snapshot.exists()) {
+              setProfilePicture(snapshot.val());
+            }
+          }
+        );
+        setLoading(false);
       })
     );
   }
@@ -39,7 +50,7 @@ const ViewUserScreen = ({ route, navigator }) => {
 
   return (
     <View style={styles.container}>
-      <ProfileImage image={zyzz} name={username} />
+      <ProfileImage image={profilePicture} name={username} />
 
       <ProfileStatSnippet genre="Hyperpop" />
       <CurrentMusicMoodComponent
