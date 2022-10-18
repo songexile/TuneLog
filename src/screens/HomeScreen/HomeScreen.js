@@ -3,6 +3,7 @@ import { getAuth } from "firebase/auth";
 import useAuth from "../../hooks/useAuth";
 import { storeCurrentSong } from "../../hooks/useWriteDb";
 import { useDisplayName } from "../../hooks/readDb";
+import noSong from "../../../assets/noSong.png";
 import axios from "axios";
 import {
   View,
@@ -59,14 +60,19 @@ const HomeScreen = () => {
     useCallback(() => {
       getCurrentlyListening(spotifyToken) //run function
       .then(setCurrentlyListening)
+      .catch((error) => setCurrentlyListening(null));
       // .then(console.log('Changing song to:', currentlyListening.trackName))
       // .then(storeCurrentSong(user.uid, currentlyListening.trackName, currentlyListening.artist))
       // .catch((error) => {
       //   setSpotifyToken(null); //setting token to null if there is an error
       //   //Catching error and logging to console if there is one with retrieving the top artists
       //   console.log("Error in getting currently listening to", error);
-      console.log('Changing song to:', currentlyListening.trackName)
-      storeCurrentSong(user.uid, currentlyListening.trackName, currentlyListening.artist)
+      if(currentlyListening) {
+        console.log('Changing song to:', currentlyListening.trackName)
+        storeCurrentSong(user.uid, currentlyListening.trackName, currentlyListening.artist)
+      }
+
+      
     }, [])
   );
 
@@ -80,9 +86,7 @@ const HomeScreen = () => {
             <Text style={styles.textHeader}>{name}'s Home Page</Text>
           </View>
           <Text>Currently Listening to:</Text>
-          <View>
-            
-          </View>
+          {currentlyListening ? (
           <View style={styles.button}>
             {console.log(currentlyListening)}
             <Text style={styles.bodyTextHeader}>{currentlyListening.trackName}</Text>
@@ -96,6 +100,17 @@ const HomeScreen = () => {
 
 
           </View>
+           ) : ( 
+            <View style={styles.button}>
+            <Text style={styles.bodyTextHeader}>No song playing</Text>
+            <View>
+              <Image
+              style={{width: '100%', height: '100%', height: 100, width: 100, margin: 10}}
+              source={noSong}
+              />
+            </View>
+          </View>  
+          )}
           <Button onPress={signOut} title="Sign Out">
             Sign out
           </Button>
