@@ -24,7 +24,7 @@ You can then start the app by running:
  yarn start
  ```
 
-From here, simply follow the expo instructions in the CLI in order to run the project in an IOS/Android environment.
+From here, simply follow the expo instructions in the CLI in order to run the project in an IOS/Android environment. You will also have to download the ExpoGo app on your device, the QR code is used, it will prompt you to download this app.
 **Please note, if you open the app using the QR code on another device, you must be on the same local area network as the machine running the app.**
 
 
@@ -56,6 +56,3 @@ From here, simply follow the expo instructions in the CLI in order to run the pr
 
 This project was created by Ray Howorth, Otis Wales and Elan McInerney
 If you have any issues or bugs please open a thread in the issues section on GitHub.
-
-
-
