@@ -6,9 +6,11 @@ import React from "react";
 
 export default function ProfileImage(props) {
   const { image, name } = props;
+
   return (
     <View style={styles.styleContainer}>
-      <Image style={styles.circleImage} source={image} />
+      <Image style={styles.circleImage} source={{ uri: image }} />
+
       <Text style={styles.text}>{name}</Text>
     </View>
   );

@@ -12,14 +12,13 @@ import { get, ref, child, update } from "firebase/database";
 import { db } from "../../model/config";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
-
+import zyzz from "../../../assets/zyzz.jpg";
 
 const getProfilePicture = async (spotifyToken) => {
   //Getting spotify token
 
   //API url to get image
-  const api_url =
-    "https://api.spotify.com/v1/me";
+  const api_url = "https://api.spotify.com/v1/me";
 
   //Using Axios to get the data from the API, using the token to authenticate
   try {
@@ -29,11 +28,12 @@ const getProfilePicture = async (spotifyToken) => {
       },
     });
 
-    
-    // console.log(response.data.images[0].url); 
+    // console.log(response.data.images[0].url);
 
-    //Returning 
-    return response.data.images;
+    //Returning
+    // console.log(response.data.images);
+    //console.log(response.data.images[0].url);
+    return response.data.images[0].url;
   } catch (error) {
     console.log("is this the error?" + error);
   }
@@ -43,6 +43,7 @@ const getProfilePicture = async (spotifyToken) => {
 const ProfileScreen = ({ navigation, viewingId }) => {
   const [userName, setUsername] = useState("");
   const [profilePicture, setProfilePicture] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const { spotifyToken, setSpotifyToken } = useAuth();
   const userId = user.uid;
@@ -60,15 +61,24 @@ const ProfileScreen = ({ navigation, viewingId }) => {
   );
 
   useEffect(() => {
-      getProfilePicture(spotifyToken)
+    console.warn("getting profile pic");
+    getProfilePicture(spotifyToken)
       .then(setProfilePicture)
       .catch((error) => {
-        
         console.log("Error in getting profile picture URL", error);
         setSpotifyToken(null);
       });
+    console.log("!profile picture", profilePicture);
+    setLoading(false);
   }, []);
 
+  if (loading && profilePicture.length == 0) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <ProfileImage image={profilePicture} name={userName} />
