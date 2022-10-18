@@ -17,7 +17,9 @@
   - User able to sign in and connect their Spotify Account.
   - Fetch user Spotify authorization token *(Using Spotify OAuth 2.0).*
   - Display users top songs and top artists in profile/stats page.
-  - Token updates when required.
+- Home Page
+  - Users will be displayed the song they are current listening to on Spotify.
+  - You are also able to log-out from this page.
 - **IOS/Android compatible**
   - User able to use on both IOS and Android devices (although mainly tested on IOS).
   
