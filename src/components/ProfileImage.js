@@ -6,10 +6,15 @@ import React from "react";
 
 export default function ProfileImage(props) {
   const { image, name } = props;
+  const defaultImage = "https://reactnative.dev/img/tiny_logo.png";
+  console.log("img " + image);
 
   return (
     <View style={styles.styleContainer}>
-      <Image style={styles.circleImage} source={{ uri: image }} />
+      <Image
+        style={styles.circleImage}
+        source={{ uri: image.toString() || defaultImage }}
+      />
 
       <Text style={styles.text}>{name}</Text>
     </View>

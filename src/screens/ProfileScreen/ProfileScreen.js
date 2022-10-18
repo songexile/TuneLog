@@ -72,7 +72,7 @@ const ProfileScreen = ({ navigation, viewingId }) => {
     setLoading(false);
   }, []);
 
-  if (loading && profilePicture.length == 0) {
+  if (loading && profilePicture == null) {
     return (
       <View style={styles.container}>
         <Text>Loading...</Text>
@@ -81,13 +81,11 @@ const ProfileScreen = ({ navigation, viewingId }) => {
   }
   return (
     <View style={styles.container}>
-      <ProfileImage image={profilePicture} name={userName} />
-
+      {<ProfileImage image={profilePicture} name={userName} />}
       <CustomButton
         title="Edit Profile"
         onPress={() => navigation.navigate("EditProfile")}
       />
-
       <ProfileStatSnippet genre="Hyperpop" />
       <CurrentMusicMoodComponent
         artist="Bladee"

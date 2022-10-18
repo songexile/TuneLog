@@ -39,7 +39,10 @@ const ViewUserScreen = ({ route, navigator }) => {
 
   return (
     <View style={styles.container}>
-      <ProfileImage image={zyzz} name={username} />
+      <ProfileImage
+        image={"https://reactnative.dev/img/tiny_logo.png"}
+        name={username}
+      />
 
       <ProfileStatSnippet genre="Hyperpop" />
       <CurrentMusicMoodComponent
