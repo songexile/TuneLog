@@ -13,6 +13,7 @@ import { db } from "../../model/config";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import zyzz from "../../../assets/zyzz.jpg";
+import { storeImage } from "../../hooks/useWriteDb";
 
 const getProfilePicture = async (spotifyToken) => {
   //Getting spotify token
@@ -62,13 +63,9 @@ const ProfileScreen = ({ navigation, viewingId }) => {
 
   useEffect(() => {
     console.warn("getting profile pic");
-    getProfilePicture(spotifyToken)
-      .then(setProfilePicture)
-      .catch((error) => {
-        console.log("Error in getting profile picture URL", error);
-        setSpotifyToken(null);
-      });
-    console.log("!profile picture", profilePicture);
+    getProfilePicture(spotifyToken).then(setProfilePicture);
+    storeImage(userId, profilePicture);
+
     setLoading(false);
   }, []);
 

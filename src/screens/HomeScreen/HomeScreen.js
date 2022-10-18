@@ -61,12 +61,7 @@ const HomeScreen = ({ navigation }) => {
       getCurrentlyListening(spotifyToken) //run function
         .then(setCurrentlyListening)
         .catch((error) => setCurrentlyListening(null));
-      // .then(console.log('Changing song to:', currentlyListening.trackName))
-      // .then(storeCurrentSong(user.uid, currentlyListening.trackName, currentlyListening.artist))
-      // .catch((error) => {
-      //   setSpotifyToken(null); //setting token to null if there is an error
-      //   //Catching error and logging to console if there is one with retrieving the top artists
-      //   console.log("Error in getting currently listening to", error);
+
       if (currentlyListening) {
         console.log("Changing song to:", currentlyListening.trackName);
         storeCurrentSong(
@@ -77,8 +72,6 @@ const HomeScreen = ({ navigation }) => {
       }
     }, [])
   );
-
-  //Will still have errors when nothing is playing - NEEDS FIXING
 
   return (
     <SafeAreaView style={styles.container}>

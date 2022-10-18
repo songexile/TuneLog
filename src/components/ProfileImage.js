@@ -6,7 +6,8 @@ import React from "react";
 
 export default function ProfileImage(props) {
   const { image, name } = props;
-  const defaultImage = "https://reactnative.dev/img/tiny_logo.png";
+  const defaultImage =
+    "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg";
   console.log("img " + image);
 
   return (
