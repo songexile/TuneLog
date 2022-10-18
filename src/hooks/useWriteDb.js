@@ -28,4 +28,11 @@ function retriveUserData(userId) {
     });
 }
 
-export { writeUserName, writeProfilePicture, retriveUserData };
+function storeCurrentSong(userId, trackName, artist) {
+  update(ref(db, "users/" + userId), {
+    currentSong: trackName + " by " + artist,
+  });
+}
+
+export { writeUserName, retriveUserData, storeCurrentSong, writeProfilePic };
+
