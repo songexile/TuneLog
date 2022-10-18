@@ -40,7 +40,7 @@ const getProfilePicture = async (spotifyToken) => {
 };
 
 //
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation, viewingId }) => {
   const [userName, setUsername] = useState("");
   const [profilePicture, setProfilePicture] = useState([]);
   const { user } = useAuth();

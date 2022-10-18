@@ -8,6 +8,8 @@ import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
 import SettingScreen from "../screens/SettingScreen/SettingScreen";
 import ProfileNavigator from "./ProfileNavigator";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import SettingNavigator from "./SettingNavigator";
+import FollowingNavigator from "./FollowingNavigator";
 
 //This class controls main navigation for the application once user is logged in.
 
@@ -59,7 +61,7 @@ function TabNavigator() {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="MusicMap" component={MusicMapScreen} />
       <Tab.Screen name="Profile" component={ProfileNavigator} />
-      <Tab.Screen name="Settings" component={SettingScreen} />
+      <Tab.Screen name="Settings" component={FollowingNavigator} />
     </Tab.Navigator>
   );
 }
