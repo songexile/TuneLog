@@ -143,6 +143,23 @@ function retriveUserData(userId) {
     });
 }
 
+function storeTopArtist(userId, topartist) {
+  //this stores the stats of the user
+  update(ref(db, "users/" + userId + "/stats"), {
+    topartist: topartist,
+  });
+}
+
+function storeTopTracks(userId, toptracks) {
+  //this stores the stats of the user
+  update(ref(db, "users/" + userId + "/stats"), {
+    toptracks: toptracks,
+  });
+  console.warn(
+    "top tracks stored in users/" + userId + "/stats" + "/toptracks"
+  );
+}
+
 export {
   writeUserName,
   retriveUserData,
@@ -151,4 +168,6 @@ export {
   returnFollowing,
   unfollowUser,
   returnFollowingUsername,
+  storeTopArtist,
+  storeTopTracks,
 };

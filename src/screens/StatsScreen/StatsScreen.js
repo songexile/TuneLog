@@ -9,6 +9,7 @@ import {
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { storeTopArtist, storeTopTracks } from "../../hooks/useWriteDb";
 
 const getTopTracks = async (spotifyToken) => {
   //Getting spotify token
@@ -66,26 +67,25 @@ const getTopArtists = async (spotifyToken) => {
 const StatsScreen = ({ navigation }) => {
   const [topSong, setTopSong] = useState([]);
   const [topArtist, setTopArtist] = useState([]);
-  const { spotifyToken, setSpotifyToken } = useAuth();
+  const { spotifyToken, setSpotifyToken, user } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getTopTracks(spotifyToken)
-      .then(setTopSong)
-      .catch((error) => {
-        //Catching error and logging to console if there is one with retrieving the top tracks
-        console.log("Error getting top songs", error);
-        setSpotifyToken(null);
-      });
+    getTopTracks(spotifyToken).then(setTopSong);
+    storeTopTracks(user.uid, topSong);
 
-    getTopArtists(spotifyToken)
-      .then(setTopArtist)
-      .catch((error) => {
-        setSpotifyToken(null); //setting token to null if there is an error
-        //Catching error and logging to console if there is one with retrieving the top artists
-        console.log("Error in getting top artists", error);
-      });
+    getTopArtists(spotifyToken).then(setTopArtist);
+    storeTopArtist(user.uid, topArtist);
+    setLoading(false);
   }, []);
 
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading stats!</Text>
+      </View>
+    );
+  }
   //Page to be rendered
   return (
     <>
