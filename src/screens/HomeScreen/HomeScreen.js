@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import CurrentSongImage from "../../components/CurrentSongImage";
+import FollowerList from "../../components/FollowerList";
 
 const getCurrentlyListening = async (spotifyToken) => {
   //API url to get users currently litening to
@@ -39,9 +40,9 @@ const getCurrentlyListening = async (spotifyToken) => {
 
     console.log("Current Track:", trackName);
     console.log("Artist:", artist);
-    
+
     //Returning the top 5 artists as an array
-    return {albumImageUri, artist, isPlaying, songUrl, trackName};
+    return { albumImageUri, artist, isPlaying, songUrl, trackName };
     // return {trackName};
   } catch (error) {
     //Catching error and logging to console
@@ -49,37 +50,34 @@ const getCurrentlyListening = async (spotifyToken) => {
   }
 };
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const { signOut, user } = useAuth();
   const name = useDisplayName();
   const { spotifyToken } = useAuth();
   const [currentlyListening, setCurrentlyListening] = useState([]);
 
-
   useFocusEffect(
     useCallback(() => {
       getCurrentlyListening(spotifyToken) //run function
-      .then(setCurrentlyListening)
-      .catch((error) => setCurrentlyListening(null));
-      // .then(console.log('Changing song to:', currentlyListening.trackName))
-      // .then(storeCurrentSong(user.uid, currentlyListening.trackName, currentlyListening.artist))
-      // .catch((error) => {
-      //   setSpotifyToken(null); //setting token to null if there is an error
-      //   //Catching error and logging to console if there is one with retrieving the top artists
-      //   console.log("Error in getting currently listening to", error);
-      if(currentlyListening) {
-        console.log('Changing song to:', currentlyListening.trackName)
-        storeCurrentSong(user.uid, currentlyListening.trackName, currentlyListening.artist)
-      }
+        .then(setCurrentlyListening)
+        .catch((error) => setCurrentlyListening(null));
 
-      
+      if (currentlyListening) {
+        console.log("Changing song to:", currentlyListening.trackName);
+        storeCurrentSong(
+          user.uid,
+          currentlyListening.trackName,
+          currentlyListening.artist
+        );
+      }
     }, [])
   );
 
-  //Will still have errors when nothing is playing - NEEDS FIXING
-
   return (
     <SafeAreaView style={styles.container}>
+      <Button onPress={signOut} title="Sign Out">
+        Sign out
+      </Button>
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <View style={styles.headerButton}>
@@ -87,38 +85,52 @@ const HomeScreen = () => {
           </View>
           <Text>Currently Listening to:</Text>
           {currentlyListening ? (
-          <View style={styles.button}>
-            {console.log(currentlyListening)}
-            <Text style={styles.bodyTextHeader}>{currentlyListening.trackName}</Text>
-            <Text style={styles.bodyText}>{currentlyListening.artist}</Text>
-            <View>
-              <Image
-              style={{width: '100%', height: '100%', height: 100, width: 100, margin: 10}}
-              source={{uri: currentlyListening.albumImageUri}}
-              />
-            </View>
-
-
-          </View>
-           ) : ( 
             <View style={styles.button}>
-            <Text style={styles.bodyTextHeader}>No song playing</Text>
-            <View>
-              <Image
-              style={{width: '100%', height: '100%', height: 100, width: 100, margin: 10}}
-              source={noSong}
-              />
+              {console.log(currentlyListening)}
+              <Text style={styles.bodyTextHeader}>
+                {currentlyListening.trackName}
+              </Text>
+              <Text style={styles.bodyText}>{currentlyListening.artist}</Text>
+              <View>
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    height: 100,
+                    width: 100,
+                    margin: 10,
+                  }}
+                  source={{ uri: currentlyListening.albumImageUri }}
+                />
+              </View>
             </View>
-          </View>  
+          ) : (
+            <View style={styles.button}>
+              <Text style={styles.bodyTextHeader}>No song playing</Text>
+              <View>
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    height: 100,
+                    width: 100,
+                    margin: 10,
+                  }}
+                  source={noSong}
+                />
+              </View>
+            </View>
           )}
-          <Button onPress={signOut} title="Sign Out">
-            Sign out
-          </Button>
         </View>
+        <FollowerList
+          userId={user.uid}
+          unfollow={"true"}
+          navigation={navigation}
+        />
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
