@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
       console.log("Artist:", artist);
 
       if(trackName != null){
-        storeCurrentSong(user.uid, trackName, artist);
+        storeCurrentSong(user.uid, trackName, artist, albumImageUri);
       }
 
       //Returning the top 5 artists as an array
@@ -67,15 +67,6 @@ const HomeScreen = ({ navigation }) => {
       getCurrentlyListening(spotifyToken) //run function
         .then(setCurrentlyListening)
         .catch((error) => setCurrentlyListening(null));
-
-      if (currentlyListening) {
-        console.log("Changing song to:", currentlyListening.trackName);
-        storeCurrentSong(
-          user.uid,
-          currentlyListening.trackName,
-          currentlyListening.artist
-        );
-      }
     }, [])
   );
 

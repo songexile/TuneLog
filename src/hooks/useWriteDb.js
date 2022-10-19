@@ -167,9 +167,10 @@ function storeTopTracks(userId, toptracks) {
   );
 }
 
-function storeCurrentSong(userId, trackName, artist) {
-  update(ref(db, "users/" + userId), {
+function storeCurrentSong(userId, trackName, artist, imageUrl) {
+  update(ref(db, "users/" + userId + "/currentListening"), {
     currentSong: trackName + " by " + artist,
+    imageUrl: imageUrl,
   });
   console.warn("storing current song");
 }
