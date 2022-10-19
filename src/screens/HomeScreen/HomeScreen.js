@@ -18,39 +18,42 @@ import { useFocusEffect } from "@react-navigation/native";
 import CurrentSongImage from "../../components/CurrentSongImage";
 import FollowerList from "../../components/FollowerList";
 
-const getCurrentlyListening = async (spotifyToken) => {
-  //API url to get users currently litening to
-  const api_url = "https://api.spotify.com/v1/me/player/currently-playing";
-
-  //Using Axios to get the data from the API, using the token to authenticate
-  try {
-    const response = await axios.get(api_url, {
-      headers: {
-        Authorization: `Bearer ${spotifyToken}`,
-      },
-    });
-
-    //Storing the data in a variables
-    const song = response.data;
-    const albumImageUri = song.item.album.images[0].url;
-    const artist = song.item.artists.map((_artist) => _artist.name).join(", ");
-    const isPlaying = song.is_playing;
-    const songUrl = song.item.external_urls.spotify;
-    const trackName = song.item.name;
-
-    console.log("Current Track:", trackName);
-    console.log("Artist:", artist);
-
-    //Returning the top 5 artists as an array
-    return { albumImageUri, artist, isPlaying, songUrl, trackName };
-    // return {trackName};
-  } catch (error) {
-    //Catching error and logging to console
-    console.log(error);
-  }
-};
-
 const HomeScreen = ({ navigation }) => {
+  const getCurrentlyListening = async (spotifyToken) => {
+    //API url to get users currently litening to
+    const api_url = "https://api.spotify.com/v1/me/player/currently-playing";
+
+    //Using Axios to get the data from the API, using the token to authenticate
+    try {
+      const response = await axios.get(api_url, {
+        headers: {
+          Authorization: `Bearer ${spotifyToken}`,
+        },
+      });
+
+      //Storing the data in a variables
+      const song = response.data;
+      const albumImageUri = song.item.album.images[0].url;
+      const artist = song.item.artists
+        .map((_artist) => _artist.name)
+        .join(", ");
+      const isPlaying = song.is_playing;
+      const songUrl = song.item.external_urls.spotify;
+      const trackName = song.item.name;
+
+      console.log("Current Track:", trackName);
+      console.log("Artist:", artist);
+      storeCurrentSong(user.uid, trackName, artist);
+
+      //Returning the top 5 artists as an array
+      return { albumImageUri, artist, isPlaying, songUrl, trackName };
+      // return {trackName};
+    } catch (error) {
+      //Catching error and logging to console
+      console.log(error);
+    }
+  };
+
   const { signOut, user } = useAuth();
   const name = useDisplayName();
   const { spotifyToken } = useAuth();
