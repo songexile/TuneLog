@@ -47,6 +47,7 @@ const userNameExist = async (username, userId) => {
 };
 
 async function followUser(username, userId) {
+  console.warn("pressing follow user");
   const exist = await get(child(ref(db), "users/")).then((snapshot) => {
     //check if user exists
     if (snapshot.exists()) {
@@ -170,6 +171,7 @@ function storeCurrentSong(userId, trackName, artist) {
   update(ref(db, "users/" + userId), {
     currentSong: trackName + " by " + artist,
   });
+  console.warn("storing current song");
 }
 
 function storeImage(userId, imageUrl) {

@@ -26,7 +26,9 @@ const AddFriendScreen = ({ navigation }) => {
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#9D3BEA" }]} //TODO: change to global styles
-        onPress={() => followUser(username, user.uid)}
+        onPress={() =>
+          followUser(username, user.uid) + console.warn("followed")
+        }
       >
         <Text style={styles.buttonTitle}>Follow user</Text>
       </TouchableOpacity>
