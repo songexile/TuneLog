@@ -33,7 +33,7 @@ const getProfilePicture = async (spotifyToken) => {
 
     //Returning
     // console.log(response.data.images);
-    //console.log(response.data.images[0].url);
+    
     return response.data.images[0].url;
   } catch (error) {
     console.log("is this the error?" + error);
@@ -58,16 +58,15 @@ const ProfileScreen = ({ navigation, viewingId }) => {
           console.log("No data available");
         }
       });
+
+      getProfilePicture(spotifyToken).then((image) => {
+        setProfilePicture(image);
+      });
+      storeImage(userId, profilePicture);
+      setLoading(false);
     })
   );
 
-  useEffect(() => {
-    console.warn("getting profile pic");
-    getProfilePicture(spotifyToken).then(setProfilePicture);
-    storeImage(userId, profilePicture);
-
-    setLoading(false);
-  }, []);
 
   if (loading && profilePicture == null) {
     return (

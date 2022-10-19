@@ -43,7 +43,10 @@ const HomeScreen = ({ navigation }) => {
 
       console.log("Current Track:", trackName);
       console.log("Artist:", artist);
-      storeCurrentSong(user.uid, trackName, artist);
+
+      if(trackName != null){
+        storeCurrentSong(user.uid, trackName, artist);
+      }
 
       //Returning the top 5 artists as an array
       return { albumImageUri, artist, isPlaying, songUrl, trackName };
