@@ -55,7 +55,16 @@ export const getAllUsernames = async (userId) => {
 
   for (const id in ids) {
     const name = await getUsernameFromId(ids[id]);
-    jsonArr.push({ id: ids[id], name: name });
+    const profilePic = await getProfilePicture(ids[id]);
+    const currentListening = await getCurrentListening(ids[id]);
+    console.log(ids[id]);
+    jsonArr.push({
+      id: ids[id],
+      name: name,
+      profilePic: profilePic,
+      currentListening: currentListening,
+    });
+
     //  usernames.push(name);
   }
   // console.log(usernames);
@@ -63,6 +72,34 @@ export const getAllUsernames = async (userId) => {
   //console.log(jsonArr);
 
   return jsonArr;
+};
+
+export const getProfilePicture = async (userId) => {
+  //this will return the profile picture of the user
+  //this returns there username from the main id of the user
+  const profilePicture = await get(
+    child(ref(db), "users/" + userId + "/imageUrl")
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      return snapshot.val();
+    } else {
+      return "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg";
+    }
+  });
+  return profilePicture;
+};
+
+export const getCurrentListening = async (userId) => {
+  const currentSong = await get(
+    child(ref(db), "users/" + userId + "/currentlyListening/")
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      return snapshot.val().currentSong;
+    } else {
+      return "Nothing";
+    }
+  });
+  return currentSong;
 };
 
 export const unfollowUser = async (yourUserId, thereUserId) => {

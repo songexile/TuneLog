@@ -3,7 +3,8 @@ import React from "react";
 import { useFeelingMood, useDisplayName } from "../hooks/readDb";
 
 export default function CurrentMusicMoodComponent(props) {
-  const [artist, song] = useFeelingMood();
+  const artist = "Zyzz";
+  const song = "Oh";
   return (
     <View style={styles.bubbleContainer}>
       <Text style={styles.userText}>{props.userName} is feeling...</Text>
