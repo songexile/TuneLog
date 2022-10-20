@@ -57,6 +57,7 @@ export const getAllUsernames = async (userId) => {
     const name = await getUsernameFromId(ids[id]);
     const profilePic = await getProfilePicture(ids[id]);
     const currentListening = await getCurrentListening(ids[id]);
+    console.log(currentListening + "!!");
     console.log(ids[id]);
     jsonArr.push({
       id: ids[id],
@@ -91,7 +92,7 @@ export const getProfilePicture = async (userId) => {
 
 export const getCurrentListening = async (userId) => {
   const currentSong = await get(
-    child(ref(db), "users/" + userId + "/currentlyListening/")
+    child(ref(db), "users/" + userId + "/currentListening")
   ).then((snapshot) => {
     if (snapshot.exists()) {
       return snapshot.val().currentSong;

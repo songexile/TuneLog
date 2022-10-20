@@ -52,14 +52,30 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying, navigation }) => {
         {following.map((user) => {
           return (
             <View style={styles.listeningBox}>
-              <ProfileImage image={user.profilePic} />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("ViewUser", {
+                    viewingId: user.id,
+                  });
+                }}
+              >
+                <ProfileImage image={user.profilePic} />
+              </TouchableOpacity>
               <View style={styles.container}>
-                <Text style={styles.usernameText}>{user.name}</Text>
-                <Text>Listening to</Text>
-                <Text style={styles.currentListening}>
-                  {" "}
-                  {user.currentListening}
-                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("ViewUser", {
+                      viewingId: user.id,
+                    });
+                  }}
+                >
+                  <Text style={styles.usernameText}>{user.name}</Text>
+                  <Text>Listening to</Text>
+                  <Text style={styles.currentListening}>
+                    {" "}
+                    {user.currentListening}
+                  </Text>
+                </TouchableOpacity>
                 {unfollow && (
                   <Text
                     style={styles.unfollow}
