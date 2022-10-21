@@ -48,7 +48,7 @@ const getTopArtists = async (spotifyToken, timePeriod) => {
 
   //API url to get top artists, limit 5
   const api_url =
-    "https://api.spotify.com/v1/me/top/tracks?time_range=" +
+    "https://api.spotify.com/v1/me/top/artists?time_range=" +
     timePeriod +
     "&limit=5";
 
