@@ -48,7 +48,7 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying, navigation }) => {
   );
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <Text>Loading following list</Text>;
   }
 
   if (following.length == 0) {

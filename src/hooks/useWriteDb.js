@@ -65,10 +65,15 @@ async function followUser(username, userId) {
             //this stores you in the users followers tab
             time: Date.now(),
           });
+          return true;
         }
       }
     }
   });
+  if (exist == undefined) {
+    return "There is no user under that name";
+  }
+  return "User was found and followed";
 }
 
 const unfollowUser = (username, userId) => {
