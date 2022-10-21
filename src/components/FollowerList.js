@@ -19,6 +19,15 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying, navigation }) => {
   const [loading, setLoading] = useState(false); //loading state
   const { user } = useAuth();
 
+  const unfollowUserState = (userId) => {
+    //removes user from the map of following, so we don't need to refresh whole db for delete
+
+    setFollowing(
+      (following) => following.filter((following) => following.id !== userId) //here we filter the user out by user id and setfollowing to the new array
+    );
+    //use the id to delete the user from the map
+  };
+
   const navigateToProfile = (userId) => {
     navigation.navigate("ViewUser", {
       viewingId: user.id,
@@ -80,7 +89,8 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying, navigation }) => {
                   <Text
                     style={styles.unfollow}
                     onPress={() => {
-                      unfollowUser(userId, user.id);
+                      unfollowUserState(user.id);
+                      +unfollowUser(userId, user.id);
                     }}
                   >
                     Unfollow

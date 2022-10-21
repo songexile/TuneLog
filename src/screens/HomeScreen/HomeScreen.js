@@ -17,6 +17,7 @@ import {
 import { useFocusEffect } from "@react-navigation/native";
 import CurrentSongImage from "../../components/CurrentSongImage";
 import FollowerList from "../../components/FollowerList";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const HomeScreen = ({ navigation }) => {
   const getCurrentlyListening = async (spotifyToken) => {
@@ -44,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
       console.log("Current Track:", trackName);
       console.log("Artist:", artist);
 
-      if(trackName != null){
+      if (trackName != null) {
         storeCurrentSong(user.uid, trackName, artist, albumImageUri);
       }
 
@@ -72,9 +73,6 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Button onPress={signOut} title="Sign Out">
-        Sign out
-      </Button>
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
           <View style={styles.headerButton}>
@@ -119,6 +117,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
           )}
         </View>
+
         <FollowerList
           userId={user.uid}
           unfollow={"true"}
