@@ -10,15 +10,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { storeTopArtist, storeTopTracks } from "../../hooks/useWriteDb";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const getTopTracks = async (spotifyToken) => {
+const getTopTracks = async (spotifyToken, timePeriod) => {
   //Getting spotify token
 
   // console.log("Getting access Token for TopSongs:", spotifyToken );
 
   //API url to get top tracks, limit 5
   const api_url =
-    "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=5";
+    "https://api.spotify.com/v1/me/top/tracks?time_range=" +
+    timePeriod +
+    "&limit=5";
 
   //Using Axios to get the data from the API, using the token to authenticate
   try {
@@ -37,7 +40,7 @@ const getTopTracks = async (spotifyToken) => {
   }
 };
 
-const getTopArtists = async (spotifyToken) => {
+const getTopArtists = async (spotifyToken, timePeriod) => {
   //Getting spotify token
 
   //Console log for testing
@@ -45,7 +48,9 @@ const getTopArtists = async (spotifyToken) => {
 
   //API url to get top artists, limit 5
   const api_url =
-    "https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=5";
+    "https://api.spotify.com/v1/me/top/tracks?time_range=" +
+    timePeriod +
+    "&limit=5";
 
   //Using Axios to get the data from the API, using the token to authenticate
   try {
@@ -70,22 +75,45 @@ const StatsScreen = ({ navigation }) => {
   const { spotifyToken, setSpotifyToken, user } = useAuth();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getTopTracks(spotifyToken).then(setTopSong);
-    storeTopTracks(user.uid, topSong);
+  const [timePeriod, setTimePeriod] = useState(shortTerm);
 
-    getTopArtists(spotifyToken).then(setTopArtist);
-    storeTopArtist(user.uid, topArtist);
+  const mediumTerm = "medium_term"; //default time period is short term
+  const shortTerm = "short_term";
+  const longTerm = "long_term";
+
+  console.log(timePeriod);
+
+  const changeTimePeriod = (timePeriod) => {
+    console.log("Current timePeriod:", timePeriod);
+    //function to switch time period
+    if (timePeriod == shortTerm) {
+      setTimePeriod(mediumTerm);
+    } else if (timePeriod == mediumTerm) {
+      setTimePeriod(longTerm);
+    } else if (timePeriod == longTerm) {
+      setTimePeriod(shortTerm);
+    }
+
+    console.warn("pressed");
+  };
+
+  //this effect just sets timeperiod to short term
+  useEffect(() => {
+    setTimePeriod(shortTerm);
     setLoading(false);
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading stats!</Text>
-      </View>
-    );
-  }
+  useEffect(() => {
+    setLoading(true);
+    console.log("time period is", timePeriod);
+    getTopTracks(spotifyToken, timePeriod).then(setTopSong);
+    storeTopTracks(user.uid, topSong);
+
+    getTopArtists(spotifyToken, timePeriod).then(setTopArtist);
+    storeTopArtist(user.uid, topArtist);
+    setLoading(false);
+  }, [timePeriod]);
+
   //Page to be rendered
   return (
     <>
@@ -95,6 +123,13 @@ const StatsScreen = ({ navigation }) => {
             <Text style={{ fontWeight: "bold", color: "black", fontSize: 26 }}>
               Your Stats
             </Text>
+            <TouchableOpacity onPress={() => changeTimePeriod(timePeriod)}>
+              <Text
+                style={{ fontWeight: "bold", color: "black", fontSize: 26 }}
+              >
+                Current Time Period {timePeriod}
+              </Text>
+            </TouchableOpacity>
             {console.log(topSong)}
           </View>
           <View style={styles.centreItem}>
