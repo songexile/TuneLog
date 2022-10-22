@@ -159,7 +159,7 @@ const StatsScreen = ({ navigation }) => {
               <View style={styles.button}>
                 <Text>{artist.name}</Text>
               </View>
-            ))}
+          ))}
         </ScrollView>
       </SafeAreaView>
     </>
