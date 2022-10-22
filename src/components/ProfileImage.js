@@ -10,15 +10,24 @@ export default function ProfileImage(props) {
     "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg";
   console.log("img " + image);
 
-  return (
-    <View style={styles.styleContainer}>
-      <Image
-        style={styles.circleImage}
-        source={{ uri: image.toString() || defaultImage }}
-      />
+  if (name != null) {
+    return (
+      <View style={styles.styleContainer}>
+        <Image
+          style={styles.circleImage}
+          source={{ uri: image.toString() || defaultImage }}
+        />
 
-      <Text style={styles.text}>{name}</Text>
-    </View>
+        <Text style={styles.text}>{name}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <Image
+      style={styles.smallerCircleImage}
+      source={{ uri: image.toString() || defaultImage }}
+    />
   );
 }
 
@@ -30,6 +39,11 @@ const styles = StyleSheet.create({
   circleImage: {
     width: 75,
     height: 75,
+    borderRadius: 100,
+  },
+  smallerCircleImage: {
+    width: 50,
+    height: 50,
     borderRadius: 100,
   },
   text: {

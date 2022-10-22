@@ -47,6 +47,7 @@ const userNameExist = async (username, userId) => {
 };
 
 async function followUser(username, userId) {
+  console.warn("pressing follow user");
   const exist = await get(child(ref(db), "users/")).then((snapshot) => {
     //check if user exists
     if (snapshot.exists()) {
@@ -64,10 +65,15 @@ async function followUser(username, userId) {
             //this stores you in the users followers tab
             time: Date.now(),
           });
+          return true;
         }
       }
     }
   });
+  if (exist == undefined) {
+    return "There is no user under that name";
+  }
+  return "User was found and followed";
 }
 
 const unfollowUser = (username, userId) => {
@@ -166,10 +172,12 @@ function storeTopTracks(userId, toptracks) {
   );
 }
 
-function storeCurrentSong(userId, trackName, artist) {
-  update(ref(db, "users/" + userId), {
+function storeCurrentSong(userId, trackName, artist, imageUrl) {
+  update(ref(db, "users/" + userId + "/currentListening"), {
     currentSong: trackName + " by " + artist,
+    imageUrl: imageUrl,
   });
+  console.warn("storing current song");
 }
 
 function storeImage(userId, imageUrl) {
