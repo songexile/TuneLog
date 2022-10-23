@@ -73,7 +73,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={{width: "90%"}}>
         <View style={styles.container}>
         <Image
           style={styles.logo}
@@ -121,7 +121,9 @@ const HomeScreen = ({ navigation }) => {
             </View>
           )}
         </View>
-        <Text styles={{textAlign:'center'}}>Following</Text>         
+        <View style={styles.centreItem}>
+        <Text>Following</Text>
+        </View>         
         <FollowerList
           userId={user.uid}
           unfollow={"true"}
@@ -134,8 +136,9 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0,
+    flex: 1,
     alignItems: "center",
+    width: "100%",
   },
   button: {
     width: "100%",
