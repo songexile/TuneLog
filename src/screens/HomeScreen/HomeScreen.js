@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
           source={require("../../../assets/tuneLogLogo.png")}
         />
           <View style={styles.headerButton}>
-            <Text style={styles.textHeader}>Home Page</Text>
+            <Text style={styles.textHeader}>Welcome to your Home Page!</Text>
           </View>
           <Text>Currently Listening to:</Text>
           {currentlyListening ? (
@@ -89,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.bodyTextHeader}>
                 {currentlyListening.trackName}
               </Text>
-              <Text style={styles.bodyTextHeader}>{currentlyListening.artist}</Text>
+              <Text style={styles.bodyText}>{currentlyListening.artist}</Text>
               <View>
                 <Image
                   style={{

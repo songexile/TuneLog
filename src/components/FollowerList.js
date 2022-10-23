@@ -81,7 +81,7 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying, navigation }) => {
                   <Text style={styles.usernameText}>{user.name}</Text>
                   <Text>Listening to</Text>
                   <Text style={styles.currentListening}>
-                    {" "}
+                    {""}
                     {user.currentListening}
                   </Text>
                 </TouchableOpacity>
@@ -123,6 +123,8 @@ const styles = StyleSheet.create({
   usernameText: {
     fontSize: 20,
     fontWeight: "700",
+    alignItems: "center",
+    alignContent: "center",
   },
   listeningBox: {
     flex: 1,
