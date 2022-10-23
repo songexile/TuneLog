@@ -79,7 +79,7 @@ const FollowerList = ({ userId, unfollow, currentlyPlaying, navigation }) => {
                   }}
                 >
                   <Text style={styles.usernameText}>{user.name}</Text>
-                  <Text styles={{alignText: 'center'}}>Listening to</Text>
+                  <Text style={styles.recentTuneText}>Most recent tune:</Text>
                   <Text style={styles.currentListening}>
                     {""}
                     {user.currentListening}
@@ -123,9 +123,7 @@ const styles = StyleSheet.create({
   usernameText: {
     fontSize: 20,
     fontWeight: "700",
-    alignItems: "center",
-    alignContent: "center",
-    alignText: "center",
+    alignSelf: "center",
   },
   listeningBox: {
     flex: 1,
@@ -168,6 +166,12 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 20,
     paddingHorizontal: 20,
+  },
+  recentTuneText: {
+    color: '#363535',
+    // fontSize: 11,
+    fontWeight: "400",
+    alignSelf: "center",
   },
 });
 export default FollowerList;

@@ -73,15 +73,15 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{width: "90%"}}>
+      <ScrollView style={{width: "90%", showsVerticalScrollIndicator: false}}>
         <View style={styles.container}>
         <Image
           style={styles.logo}
           source={require("../../../assets/tuneLogLogo.png")}
         />
-          <View style={styles.headerButton}>
             <Text style={styles.textHeader}>Welcome to your Home Page</Text>
-          </View>
+          {/* <View style={styles.headerButton}>
+          </View> */}
           <View
           style={{
             borderBottomColor: '#827f7f',
