@@ -75,8 +75,12 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
+        <Image
+          style={styles.logo}
+          source={require("../../../assets/tuneLogLogo.png")}
+        />
           <View style={styles.headerButton}>
-            <Text style={styles.textHeader}>{name}'s Home Page</Text>
+            <Text style={styles.textHeader}>Home Page</Text>
           </View>
           <Text>Currently Listening to:</Text>
           {currentlyListening ? (
@@ -85,7 +89,7 @@ const HomeScreen = ({ navigation }) => {
               <Text style={styles.bodyTextHeader}>
                 {currentlyListening.trackName}
               </Text>
-              <Text style={styles.bodyText}>{currentlyListening.artist}</Text>
+              <Text style={styles.bodyTextHeader}>{currentlyListening.artist}</Text>
               <View>
                 <Image
                   style={{
@@ -117,7 +121,7 @@ const HomeScreen = ({ navigation }) => {
             </View>
           )}
         </View>
-
+        <Text styles={{textAlign:'center'}}>Following</Text>         
         <FollowerList
           userId={user.uid}
           unfollow={"true"}
@@ -130,7 +134,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0,
     alignItems: "center",
   },
   button: {
@@ -176,6 +180,13 @@ const styles = StyleSheet.create({
     height: 25,
     alignItems: "center",
   },
+  logo: {
+    flex: 1,
+    height: 140,
+    width: 180,
+    alignSelf: "center",
+    margin: 30,
+  }
 });
 
 export default HomeScreen;
