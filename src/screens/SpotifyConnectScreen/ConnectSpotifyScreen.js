@@ -82,11 +82,6 @@ const ConnectSpotifyScreen = () => {
         <TouchableOpacity style={styles.button}>
           <Button onPress={signOut} title="Sign out"></Button>
         </TouchableOpacity>
-        <View style={styles.button}>
-          <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-            Note: After authenticating, please sign out and sign back in!
-          </Text>
-        </View>
       </View>
     </SafeAreaView>
   );

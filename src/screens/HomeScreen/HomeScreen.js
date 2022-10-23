@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
           source={require("../../../assets/tuneLogLogo.png")}
         />
           <View style={styles.headerButton}>
-            <Text style={styles.textHeader}>Welcome to your Home Page!</Text>
+            <Text style={styles.textHeader}>Welcome to your Home Page</Text>
           </View>
           <Text>Currently Listening to:</Text>
           {currentlyListening ? (
@@ -122,6 +122,18 @@ const HomeScreen = ({ navigation }) => {
           )}
         </View>
         <View style={styles.centreItem}>
+          
+
+        <View
+  style={{
+    borderBottomColor: 'black',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    alignSelf: "stretch",
+    margin: 10,
+  }}
+/>
+
+
         <Text>Following</Text>
         </View>         
         <FollowerList
