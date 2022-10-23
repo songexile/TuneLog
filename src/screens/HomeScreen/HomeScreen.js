@@ -18,6 +18,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import CurrentSongImage from "../../components/CurrentSongImage";
 import FollowerList from "../../components/FollowerList";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { getSpotifyStats } from "../../hooks/spotifyfunctions";
 
 const HomeScreen = ({ navigation }) => {
   const getCurrentlyListening = async (spotifyToken) => {
@@ -70,26 +71,28 @@ const HomeScreen = ({ navigation }) => {
       getCurrentlyListening(spotifyToken) //run function
         .then(setCurrentlyListening)
         .catch((error) => setCurrentlyListening(null));
+
+      console.log(getSpotifyStats(user.uid, "short_term"));
     }, [])
   );
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{width: "90%"}}>
+      <ScrollView style={{ width: "90%" }}>
         <View style={styles.container}>
-        <Image
-          style={styles.logo}
-          source={require("../../../assets/tuneLogLogo.png")}
-        />
-            <Text style={styles.textHeader}>Welcome to your Home Page</Text>
+          <Image
+            style={styles.logo}
+            source={require("../../../assets/tuneLogLogo.png")}
+          />
+          <Text style={styles.textHeader}>Welcome to your Home Page</Text>
           <View
-          style={{
-            borderBottomColor: '#827f7f',
-            borderBottomWidth: StyleSheet.hairlineWidth,
-            alignSelf: "stretch",
-            margin: 10,
-          }}
-        />
+            style={{
+              borderBottomColor: "#827f7f",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              alignSelf: "stretch",
+              margin: 10,
+            }}
+          />
           <Text>Currently Listening to:</Text>
           {currentlyListening ? (
             <View style={styles.button}>
@@ -130,20 +133,17 @@ const HomeScreen = ({ navigation }) => {
           )}
         </View>
         <View style={styles.centreItem}>
-          
+          <View
+            style={{
+              borderBottomColor: "#827f7f",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              alignSelf: "stretch",
+              margin: 10,
+            }}
+          />
 
-        <View
-          style={{
-            borderBottomColor: '#827f7f',
-            borderBottomWidth: StyleSheet.hairlineWidth,
-            alignSelf: "stretch",
-            margin: 10,
-          }}
-        />
-
-
-        <Text>Following</Text>
-        </View>         
+          <Text>Following</Text>
+        </View>
         <FollowerList
           userId={user.uid}
           unfollow={"true"}
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     width: 180,
     alignSelf: "center",
     margin: 30,
-  }
+  },
 });
 
 export default HomeScreen;

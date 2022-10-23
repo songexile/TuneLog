@@ -11,6 +11,7 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { storeTopArtist, storeTopTracks } from "../../hooks/useWriteDb";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { getSpotifyStats } from "../../hooks/spotifyfunctions";
 
 const getTopTracks = async (spotifyToken, timePeriod) => {
   //Getting spotify token
@@ -106,13 +107,20 @@ const StatsScreen = ({ navigation }) => {
   useEffect(() => {
     setLoading(true);
     console.log("time period is", timePeriod);
-    getTopTracks(spotifyToken, timePeriod).then(setTopSong);
-    storeTopTracks(user.uid, topSong);
+    getSpotifyStats(user.uid, timePeriod, "top_tracks").then((data) => {
+      setTopSong(data);
 
-    getTopArtists(spotifyToken, timePeriod).then(setTopArtist);
-    storeTopArtist(user.uid, topArtist);
-    setLoading(false);
+      getSpotifyStats(user.uid, "short_term", "top_artists").then((data) => {
+        setTopArtist(data);
+        setLoading(false);
+      });
+    });
   }, [timePeriod]);
+  //getTopTracks(spotifyToken, timePeriod).then(setTopSong);
+  //storeTopTracks(user.uid, topSong);
+
+  //getTopArtists(spotifyToken, timePeriod).then(setTopArtist);
+  //storeTopArtist(user.uid, topArtist);
 
   //Page to be rendered
   return (
@@ -159,7 +167,7 @@ const StatsScreen = ({ navigation }) => {
               <View style={styles.button}>
                 <Text>{artist.name}</Text>
               </View>
-          ))}
+            ))}
         </ScrollView>
       </SafeAreaView>
     </>

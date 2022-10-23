@@ -20,12 +20,24 @@ export const storeSpotifyStats = async (spotifyToken, userId) => {
       top_artists: await getTopArtists(spotifyToken, "long_term"),
     },
   });
+};
 
-  //   const stats = {
-  //     topSongs: await getTopTracks(spotifyToken, "short_term"),
-  //     topArtists: await getTopArtists(spotifyToken, "short_term"),
-  //   };
-  //   statsRef.set(stats);
+export const getSpotifyStats = async (userId, timePeriod, type) => {
+  //this function will return the spotify stats for the user
+
+  //type is top_artists or top_tracks
+  const stats = await get(
+    child(ref(db), "users/" + userId + "/stats/" + timePeriod + "/" + type)
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      const stats = snapshot.val();
+      console.log("found stats");
+      return stats;
+    } else {
+      console.log("No data available");
+    }
+  });
+  return stats;
 };
 
 const getTopTracks = async (spotifyToken, timePeriod) => {
