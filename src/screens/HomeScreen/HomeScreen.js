@@ -35,6 +35,7 @@ const HomeScreen = ({ navigation }) => {
       //Storing the data in a variables
       const song = response.data;
       const albumImageUri = song.item.album.images[0].url;
+      //joins the artists names together if there is more than one
       const artist = song.item.artists
         .map((_artist) => _artist.name)
         .join(", ");
@@ -49,9 +50,8 @@ const HomeScreen = ({ navigation }) => {
         storeCurrentSong(user.uid, trackName, artist, albumImageUri);
       }
 
-      //Returning the top 5 artists as an array
+      //Returning the data for the currently listening to song
       return { albumImageUri, artist, isPlaying, songUrl, trackName };
-      // return {trackName};
     } catch (error) {
       //Catching error and logging to console
       console.log(error);
@@ -63,6 +63,8 @@ const HomeScreen = ({ navigation }) => {
   const { spotifyToken } = useAuth();
   const [currentlyListening, setCurrentlyListening] = useState([]);
 
+  //Runs when page is opened, uses the token to get the users currently listening to
+  //Then stores the data in a variable
   useFocusEffect(
     useCallback(() => {
       getCurrentlyListening(spotifyToken) //run function
@@ -73,15 +75,13 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{width: "90%", showsVerticalScrollIndicator: false}}>
+      <ScrollView style={{width: "90%"}}>
         <View style={styles.container}>
         <Image
           style={styles.logo}
           source={require("../../../assets/tuneLogLogo.png")}
         />
             <Text style={styles.textHeader}>Welcome to your Home Page</Text>
-          {/* <View style={styles.headerButton}>
-          </View> */}
           <View
           style={{
             borderBottomColor: '#827f7f',
@@ -162,7 +162,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "100%",
-    // height: "30%",
     alignItems: "center",
     backgroundColor: "#D3A8F6",
     color: "white",
