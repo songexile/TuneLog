@@ -82,6 +82,14 @@ const HomeScreen = ({ navigation }) => {
           <View style={styles.headerButton}>
             <Text style={styles.textHeader}>Welcome to your Home Page</Text>
           </View>
+          <View
+          style={{
+            borderBottomColor: '#827f7f',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            alignSelf: "stretch",
+            margin: 10,
+          }}
+        />
           <Text>Currently Listening to:</Text>
           {currentlyListening ? (
             <View style={styles.button}>
@@ -125,13 +133,13 @@ const HomeScreen = ({ navigation }) => {
           
 
         <View
-  style={{
-    borderBottomColor: 'black',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    alignSelf: "stretch",
-    margin: 10,
-  }}
-/>
+          style={{
+            borderBottomColor: '#827f7f',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            alignSelf: "stretch",
+            margin: 10,
+          }}
+        />
 
 
         <Text>Following</Text>
