@@ -5,6 +5,7 @@ import SettingScreen from "../screens/SettingScreen/SettingScreen";
 import AddFriendScreen from "../screens/AddFriendScreen/AddScreenFriend";
 import RemoveFriendScreen from "../screens/RemoveFriendScreen/RemoveFriendScreen";
 import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
+import EditProfileScreen from "../screens/EditProfileScreen/EditProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,8 +18,7 @@ const SettingNavigator = () => {
         component={SettingScreen}
       />
       <Stack.Screen name="AddFriend" component={AddFriendScreen} />
-      <Stack.Screen name="RemoveFriend" component={RemoveFriendScreen} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     </Stack.Navigator>
   );
 };

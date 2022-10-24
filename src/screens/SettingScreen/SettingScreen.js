@@ -5,25 +5,27 @@ import FollowerList from "../../components/FollowerList";
 import useAuth from "../../hooks/useAuth";
 import { WebView } from "react-native-webview";
 
-
 const SettingScreen = ({ navigation }) => {
   const { user, signOut } = useAuth();
-  
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{height:100, saclesPageToFit:true, position: 'static', inset: 0}}>
-      <WebView source={{uri: 'https://open.spotify.com/embed/track/6jRCP46FGnbXAcJcOt51rZ?utm_source=generator'}} 
-        style={{height: 80, width:300, frameBorder:0, scrollEnabled: false, flex:0, saclesPageToFit:true, position: 'static', inset: 0 }}>
-      </WebView>
-      </View>
+      <View
+        style={{
+          height: 100,
+          saclesPageToFit: true,
+          position: "static",
+          inset: 0,
+        }}
+      ></View>
 
-
-
-      
-      
       <CustomButton
         title="Add friend"
         onPress={() => navigation.navigate("AddFriend")}
+      />
+      <CustomButton
+        title="Edit Profile"
+        onPress={() => navigation.navigate("EditProfile")}
       />
       <CustomButton onPress={signOut} title="Sign out" />
     </SafeAreaView>

@@ -10,12 +10,14 @@ import ProfileNavigator from "./ProfileNavigator";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import SettingNavigator from "./SettingNavigator";
 import FollowingNavigator from "./FollowingNavigator";
+import useAuth from "../hooks/useAuth";
 
 //This class controls main navigation for the application once user is logged in.
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
+  const { user } = useAuth();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -60,7 +62,12 @@ function TabNavigator() {
     >
       <Tab.Screen name="Home" component={FollowingNavigator} />
       <Tab.Screen name="MusicMap" component={MusicMapScreen} />
-      <Tab.Screen name="Profile" component={ProfileNavigator} />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        initialParams={{ viewingId: user.uid }}
+      />
+
       <Tab.Screen name="Settings" component={SettingNavigator} />
     </Tab.Navigator>
   );
