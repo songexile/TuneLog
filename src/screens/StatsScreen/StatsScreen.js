@@ -13,64 +13,11 @@ import { storeTopArtist, storeTopTracks } from "../../hooks/useWriteDb";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { getSpotifyStats } from "../../hooks/spotifyfunctions";
 
-const getTopTracks = async (spotifyToken, timePeriod) => {
-  //Getting spotify token
-
-  // console.log("Getting access Token for TopSongs:", spotifyToken );
-
-  //API url to get top tracks, limit 5
-  const api_url =
-    "https://api.spotify.com/v1/me/top/tracks?time_range=" +
-    timePeriod +
-    "&limit=5";
-
-  //Using Axios to get the data from the API, using the token to authenticate
-  try {
-    const response = await axios.get(api_url, {
-      headers: {
-        Authorization: `Bearer ${spotifyToken}`,
-      },
-    });
-
-    // console.log(response.data);
-
-    //Returning the top 5 tracks as an array
-    return response.data.items;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const getTopArtists = async (spotifyToken, timePeriod) => {
-  //Getting spotify token
-
-  //Console log for testing
-  // console.log("Getting access Token for TopSongs:", spotifyToken );
-
-  //API url to get top artists, limit 5
-  const api_url =
-    "https://api.spotify.com/v1/me/top/artists?time_range=" +
-    timePeriod +
-    "&limit=5";
-
-  //Using Axios to get the data from the API, using the token to authenticate
-  try {
-    const response = await axios.get(api_url, {
-      headers: {
-        Authorization: `Bearer ${spotifyToken}`,
-      },
-    });
-    // console.log(response.data);
-
-    //Returning the top 5 artists as an array
-    return response.data.items;
-  } catch (error) {
-    //Catching error and logging to console
-    console.log(error);
-  }
-};
 //Const for displaying the stats screen
-const StatsScreen = ({ navigation }) => {
+const StatsScreen = ({ navigation, route }) => {
+  const { viewingId } = route.params; //we pass in the userid of the user we are viewing
+  //console.log("!!viewingId: " + viewingId);
+
   const [topSong, setTopSong] = useState([]);
   const [topArtist, setTopArtist] = useState([]);
   const { spotifyToken, setSpotifyToken, user } = useAuth();
@@ -101,26 +48,24 @@ const StatsScreen = ({ navigation }) => {
   //this effect just sets timeperiod to short term
   useEffect(() => {
     setTimePeriod(shortTerm);
+
+    console.log(viewingId + "+!!");
     setLoading(false);
   }, []);
 
   useEffect(() => {
     setLoading(true);
     console.log("time period is", timePeriod);
-    getSpotifyStats(user.uid, timePeriod, "top_tracks").then((data) => {
+    getSpotifyStats(viewingId, timePeriod, "top_tracks").then((data) => {
+      //api call to firebase
       setTopSong(data);
 
-      getSpotifyStats(user.uid, "short_term", "top_artists").then((data) => {
+      getSpotifyStats(viewingId, "short_term", "top_artists").then((data) => {
         setTopArtist(data);
         setLoading(false);
       });
     });
   }, [timePeriod]);
-  //getTopTracks(spotifyToken, timePeriod).then(setTopSong);
-  //storeTopTracks(user.uid, topSong);
-
-  //getTopArtists(spotifyToken, timePeriod).then(setTopArtist);
-  //storeTopArtist(user.uid, topArtist);
 
   //Page to be rendered
   return (

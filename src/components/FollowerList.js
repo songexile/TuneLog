@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   recentTuneText: {
-    color: '#363535',
+    color: "#363535",
     // fontSize: 11,
     fontWeight: "400",
     alignSelf: "center",
