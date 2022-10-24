@@ -3,6 +3,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ViewUserScreen from "../screens/ViewUserScreen/ViewUserScreen";
 import StatsScreen from "../screens/StatsScreen/StatsScreen";
+import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
 
 const Stack = createStackNavigator();
 
@@ -13,7 +14,7 @@ export const ViewUserNavigator = ({ route }) => {
       <Stack.Screen
         options={{ headerShown: false }}
         name="ViewUser"
-        component={ViewUserScreen}
+        component={ProfileScreen}
         initialParams={{ viewingId: viewingId }}
       />
       <Stack.Screen

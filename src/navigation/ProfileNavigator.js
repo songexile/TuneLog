@@ -18,6 +18,7 @@ const ProfileNavigator = () => {
         options={{ headerShown: false }}
         name="Profile"
         component={ProfileScreen}
+        initialParams={{ viewingId: user.uid }}
       />
       <Stack.Screen
         name="Stats"

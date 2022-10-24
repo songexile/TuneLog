@@ -2,6 +2,7 @@
 import { db } from "../model/config"; // import the db config
 import { get, ref, child, update, set, remove } from "firebase/database";
 import axios from "axios";
+import { storeImage } from "./useWriteDb";
 
 export const storeSpotifyStats = async (spotifyToken, userId) => {
   //In this function we will use the spotifyToken to retrieve the info
@@ -82,6 +83,45 @@ const getTopTracks = async (spotifyToken, timePeriod) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getProfilePicture = async (spotifyToken, userId) => {
+  //Getting spotify token
+
+  //API url to get image
+  const api_url = "https://api.spotify.com/v1/me";
+
+  //Using Axios to get the data from the API, using the token to authenticate
+  try {
+    const response = await axios.get(api_url, {
+      headers: {
+        Authorization: `Bearer ${spotifyToken}`,
+      },
+    });
+
+    // console.log(response.data.images[0].url);
+
+    //Returning
+    // console.log(response.data.images);
+    storeImage(userId, response.data.images[0].url);
+    return response.data.images[0].url;
+  } catch (error) {
+    console.log("is this the error?" + error);
+  }
+};
+
+export const retrieveProfilePicture = async (userId) => {
+  const profilePicture = await get(
+    child(ref(db), "users/" + userId + "/profilePicture")
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      const profilePicture = snapshot.val();
+      return profilePicture;
+    } else {
+      console.log("No data available");
+    }
+  });
+  return profilePicture;
 };
 
 const getTopArtists = async (spotifyToken, timePeriod) => {

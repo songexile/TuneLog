@@ -14,6 +14,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import zyzz from "../../../assets/zyzz.jpg";
 import { getBio, storeImage } from "../../hooks/useWriteDb";
+import { retrieveProfilePicture } from "../../hooks/spotifyfunctions";
 
 const getProfilePicture = async (spotifyToken) => {
   //Getting spotify token
@@ -41,20 +42,27 @@ const getProfilePicture = async (spotifyToken) => {
 };
 
 //
-const ProfileScreen = ({ navigation, viewingId }) => {
+const ProfileScreen = ({ navigation, route }) => {
+  const { viewingId } = route.params; //we pass in the userid of the user we are viewing
+
   const [userName, setUsername] = useState("");
   const [profilePicture, setProfilePicture] = useState([]);
   const [loading, setLoading] = useState(true);
   const [bio, setBio] = useState("");
   const { user } = useAuth();
   const { spotifyToken, setSpotifyToken } = useAuth();
-  const userId = user.uid;
+  const userId = viewingId;
 
   useFocusEffect(
     React.useCallback(() => {
       get(child(ref(db), "users/" + userId)).then((snapshot) => {
         if (snapshot.exists()) {
-          setUsername(snapshot.val().username);
+          const username = snapshot.val().username;
+          if (viewingId == user.uid) {
+            setUsername(username + " (You)");
+          } else {
+            setUsername(username);
+          }
         } else {
           console.log("No data available");
         }
@@ -62,10 +70,13 @@ const ProfileScreen = ({ navigation, viewingId }) => {
           setBio(bio);
         });
       });
-      getProfilePicture(spotifyToken).then((image) => {
-        setProfilePicture(image);
-      });
-      storeImage(userId, profilePicture);
+      get(child(ref(db), "users/" + viewingId + "/imageUrl")).then(
+        (snapshot) => {
+          if (snapshot.exists()) {
+            setProfilePicture(snapshot.val());
+          }
+        }
+      );
       setLoading(false);
     })
   );
