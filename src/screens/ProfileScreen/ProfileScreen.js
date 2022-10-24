@@ -86,6 +86,7 @@ const ProfileScreen = ({ navigation, viewingId }) => {
       />
       <ProfileStatSnippet genre="Hyperpop" />
       <CurrentMusicMoodComponent userName={userName} userId={userId} />
+
       <CustomButton
         title="View stats"
         onPress={() => navigation.navigate("Stats")}
