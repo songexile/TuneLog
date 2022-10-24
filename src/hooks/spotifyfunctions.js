@@ -40,6 +40,22 @@ export const getSpotifyStats = async (userId, timePeriod, type) => {
   return stats;
 };
 
+export const getCurrentlyFeeling = async (userId) => {
+  //this function will the top current short term track for the user
+  //it is used to display the current feeling on the profile
+  const stats = await get(
+    child(ref(db), "users/" + userId + "/stats/short_term/top_tracks/0/id")
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      const stats = snapshot.val();
+      return stats;
+    } else {
+      console.log("No data available");
+    }
+  });
+  return stats;
+};
+
 const getTopTracks = async (spotifyToken, timePeriod) => {
   //Getting spotify token
 

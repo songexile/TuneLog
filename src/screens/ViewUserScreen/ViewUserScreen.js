@@ -53,11 +53,7 @@ const ViewUserScreen = ({ route, navigation }) => {
       <ProfileImage image={profilePicture} name={username} />
 
       <ProfileStatSnippet genre="Hyperpop" />
-      <CurrentMusicMoodComponent
-        artist="Bladee"
-        userName={username}
-        song="Gluee"
-      />
+      <CurrentMusicMoodComponent userName={username} userId={viewingId} />
       <CustomButton
         title="View stats"
         onPress={() => navigation.navigate("ViewUserStats")}
