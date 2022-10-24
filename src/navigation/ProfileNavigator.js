@@ -25,8 +25,6 @@ const ProfileNavigator = ({ route }) => {
         component={StatsScreen}
         initialParams={{ viewingId: viewingId }}
       />
-
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     </Stack.Navigator>
   );
 };

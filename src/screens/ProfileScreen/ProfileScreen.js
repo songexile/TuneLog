@@ -1,20 +1,18 @@
-import { View, Text, Image, Button } from "react-native";
+import { View, Text, Image, Button, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import styles from "./styles";
-import ProfilePicture from "../../../assets/zyzz.jpg";
+
 import CustomButton from "../../components/CustomButton";
 import ProfileImage from "../../components/ProfileImage";
 import ProfileStatSnippet from "../../components/StatsComponents/ProfileStatSnippet";
 import CurrentMusicMoodComponent from "../../components/CurrentMusicMoodComponent";
 import useAuth from "../../hooks/useAuth";
-import { useDisplayName } from "../../hooks/readDb";
+
 import { get, ref, child, update } from "firebase/database";
 import { db } from "../../model/config";
 import { useFocusEffect } from "@react-navigation/native";
-import axios from "axios";
-import zyzz from "../../../assets/zyzz.jpg";
-import { getBio, storeImage } from "../../hooks/useWriteDb";
-import { retrieveProfilePicture } from "../../hooks/spotifyfunctions";
+
+import { getBio } from "../../hooks/useWriteDb";
 
 //
 const ProfileScreen = ({ navigation, route }) => {
@@ -60,29 +58,35 @@ const ProfileScreen = ({ navigation, route }) => {
     })
   );
 
-  if (loading && profilePicture == null) {
+  const loadingPage = () => {
     return (
-      <View style={styles.container}>
+      <View>
         <Text>Loading...</Text>
       </View>
     );
-  }
-  return (
-    <View style={styles.container}>
-      {<ProfileImage image={profilePicture} name={userName} />}
+  };
 
-      <ProfileStatSnippet genre="Hyperpop" />
-      <CurrentMusicMoodComponent userName={userName} userId={userId} />
-      <View style={styles.spacer}></View>
-      <CustomButton
-        title="View stats"
-        onPress={() => navigation.navigate("Stats")}
-      />
-      <View style={styles.bubbleContainer}>
-        <Text>{bio}</Text>
+  const ProfilePage = () => {
+    return (
+      <View style={styles.container}>
+        {<ProfileImage image={profilePicture} name={userName} />}
+
+        <ProfileStatSnippet genre="Hyperpop" />
+        <CurrentMusicMoodComponent userName={userName} userId={userId} />
+        <View style={styles.spacer}></View>
+        <CustomButton
+          title="View stats"
+          onPress={() => navigation.navigate("Stats")}
+        />
+        <View style={styles.bubbleContainer}>
+          <Text>{bio}</Text>
+        </View>
       </View>
-    </View>
-  );
+    );
+  };
+
+  return <>{loading ? loadingPage() : ProfilePage()}</>;
 };
 
+const newstyles = StyleSheet.create({});
 export default ProfileScreen;

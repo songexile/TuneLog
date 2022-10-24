@@ -37,13 +37,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   circleImage: {
-    width: 75,
-    height: 75,
+    width: 125,
+    height: 125,
     borderRadius: 100,
   },
   smallerCircleImage: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 100,
   },
   text: {
