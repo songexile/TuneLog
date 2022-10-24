@@ -14,12 +14,13 @@ import {
 } from "react-native";
 import axios from "axios";
 import * as Linking from "expo-linking";
+import { storeSpotifyStats } from "../../hooks/spotifyfunctions";
 
 WebBrowser.maybeCompleteAuthSession();
 
 const ConnectSpotifyScreen = () => {
   //Getting hook for sign out button
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const { spotifyToken, setSpotifyToken } = useAuth();
 
   //Spotify API information
@@ -31,8 +32,8 @@ const ConnectSpotifyScreen = () => {
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
-      clientId: "ecf0bbd85d8c4456a8551dc30224ee83",
-      clientSecret: "04d9b1dd0c5d4a9b92898b0c8dde5bb5",
+      clientId: "7614fe0f953b412e9eb6fa1531b051b6",
+      clientSecret: "302ee142bcd9447b94f814604a8f6274",
 
       scopes: [
         "user-read-recently-played",
@@ -43,7 +44,7 @@ const ConnectSpotifyScreen = () => {
       ],
 
       usePKCE: false,
-      redirectUri: "exp://10.0.0.63:19000",
+      redirectUri: "exp://192.168.178.20:19000",
     },
     discovery
   );
@@ -53,6 +54,8 @@ const ConnectSpotifyScreen = () => {
   React.useEffect(() => {
     if (response?.type === "success") {
       const { access_token } = response.params;
+      console.log("running storespotify");
+      storeSpotifyStats(access_token, user.uid);
       // console.log("accessToken", access_token);
       setSpotifyToken(access_token);
     }
@@ -82,11 +85,6 @@ const ConnectSpotifyScreen = () => {
         <TouchableOpacity style={styles.button}>
           <Button onPress={signOut} title="Sign out"></Button>
         </TouchableOpacity>
-        <View style={styles.button}>
-          <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-            Note: After authenticating, please sign out and sign back in!
-          </Text>
-        </View>
       </View>
     </SafeAreaView>
   );

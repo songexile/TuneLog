@@ -33,7 +33,7 @@ const getProfilePicture = async (spotifyToken) => {
 
     //Returning
     // console.log(response.data.images);
-    
+
     return response.data.images[0].url;
   } catch (error) {
     console.log("is this the error?" + error);
@@ -67,7 +67,6 @@ const ProfileScreen = ({ navigation, viewingId }) => {
     })
   );
 
-
   if (loading && profilePicture == null) {
     return (
       <View style={styles.container}>
@@ -83,11 +82,7 @@ const ProfileScreen = ({ navigation, viewingId }) => {
         onPress={() => navigation.navigate("EditProfile")}
       />
       <ProfileStatSnippet genre="Hyperpop" />
-      <CurrentMusicMoodComponent
-        artist="Bladee"
-        userName={userName}
-        song="Gluee"
-      />
+      <CurrentMusicMoodComponent userName={userName} userId={userId} />
       <CustomButton
         title="View stats"
         onPress={() => navigation.navigate("Stats")}

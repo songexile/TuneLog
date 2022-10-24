@@ -11,71 +11,20 @@ import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { storeTopArtist, storeTopTracks } from "../../hooks/useWriteDb";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { getSpotifyStats } from "../../hooks/spotifyfunctions";
 
-const getTopTracks = async (spotifyToken, timePeriod) => {
-  //Getting spotify token
-
-  // console.log("Getting access Token for TopSongs:", spotifyToken );
-
-  //API url to get top tracks, limit 5
-  const api_url =
-    "https://api.spotify.com/v1/me/top/tracks?time_range=" +
-    timePeriod +
-    "&limit=5";
-
-  //Using Axios to get the data from the API, using the token to authenticate
-  try {
-    const response = await axios.get(api_url, {
-      headers: {
-        Authorization: `Bearer ${spotifyToken}`,
-      },
-    });
-
-    // console.log(response.data);
-
-    //Returning the top 5 tracks as an array
-    return response.data.items;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const getTopArtists = async (spotifyToken, timePeriod) => {
-  //Getting spotify token
-
-  //Console log for testing
-  // console.log("Getting access Token for TopSongs:", spotifyToken );
-
-  //API url to get top artists, limit 5
-  const api_url =
-    "https://api.spotify.com/v1/me/top/artists?time_range=" +
-    timePeriod +
-    "&limit=5";
-
-  //Using Axios to get the data from the API, using the token to authenticate
-  try {
-    const response = await axios.get(api_url, {
-      headers: {
-        Authorization: `Bearer ${spotifyToken}`,
-      },
-    });
-    // console.log(response.data);
-
-    //Returning the top 5 artists as an array
-    return response.data.items;
-  } catch (error) {
-    //Catching error and logging to console
-    console.log(error);
-  }
-};
 //Const for displaying the stats screen
-const StatsScreen = ({ navigation }) => {
+const StatsScreen = ({ navigation, route }) => {
+  const { viewingId } = route.params; //we pass in the userid of the user we are viewing
+  //console.log("!!viewingId: " + viewingId);
+
   const [topSong, setTopSong] = useState([]);
   const [topArtist, setTopArtist] = useState([]);
   const { spotifyToken, setSpotifyToken, user } = useAuth();
   const [loading, setLoading] = useState(true);
 
   const [timePeriod, setTimePeriod] = useState(shortTerm);
+  const [timePeriodText, setTimePeriodText] = useState("Short Term"); //this gives a better user experience as the user can see what time period they are viewing
 
   const mediumTerm = "medium_term"; //default time period is short term
   const shortTerm = "short_term";
@@ -88,10 +37,13 @@ const StatsScreen = ({ navigation }) => {
     //function to switch time period
     if (timePeriod == shortTerm) {
       setTimePeriod(mediumTerm);
+      setTimePeriodText("Medium Term");
     } else if (timePeriod == mediumTerm) {
       setTimePeriod(longTerm);
+      setTimePeriodText("Long Term");
     } else if (timePeriod == longTerm) {
       setTimePeriod(shortTerm);
+      setTimePeriodText("Short Term");
     }
 
     console.warn("pressed");
@@ -106,12 +58,15 @@ const StatsScreen = ({ navigation }) => {
   useEffect(() => {
     setLoading(true);
     console.log("time period is", timePeriod);
-    getTopTracks(spotifyToken, timePeriod).then(setTopSong);
-    storeTopTracks(user.uid, topSong);
+    getSpotifyStats(viewingId, timePeriod, "top_tracks").then((data) => {
+      //api call to firebase
+      setTopSong(data);
 
-    getTopArtists(spotifyToken, timePeriod).then(setTopArtist);
-    storeTopArtist(user.uid, topArtist);
-    setLoading(false);
+      getSpotifyStats(viewingId, timePeriod, "top_artists").then((data) => {
+        setTopArtist(data);
+        setLoading(false);
+      });
+    });
   }, [timePeriod]);
 
   //Page to be rendered
@@ -121,13 +76,13 @@ const StatsScreen = ({ navigation }) => {
         <ScrollView style={styles.scrollView}>
           <View style={styles.headerButton}>
             <Text style={{ fontWeight: "bold", color: "black", fontSize: 26 }}>
-              Your Stats
+              {viewingId == user.id ? "Your" : "Their"} Stats
             </Text>
             <TouchableOpacity onPress={() => changeTimePeriod(timePeriod)}>
               <Text
                 style={{ fontWeight: "bold", color: "black", fontSize: 26 }}
               >
-                Current Time Period {timePeriod}
+                Current Time Period {timePeriodText}
               </Text>
             </TouchableOpacity>
             {console.log(topSong)}
@@ -159,7 +114,7 @@ const StatsScreen = ({ navigation }) => {
               <View style={styles.button}>
                 <Text>{artist.name}</Text>
               </View>
-          ))}
+            ))}
         </ScrollView>
       </SafeAreaView>
     </>

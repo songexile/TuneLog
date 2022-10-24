@@ -18,6 +18,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import CurrentSongImage from "../../components/CurrentSongImage";
 import FollowerList from "../../components/FollowerList";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { getSpotifyStats } from "../../hooks/spotifyfunctions";
 
 const HomeScreen = ({ navigation }) => {
   const getCurrentlyListening = async (spotifyToken) => {
@@ -35,6 +36,7 @@ const HomeScreen = ({ navigation }) => {
       //Storing the data in a variables
       const song = response.data;
       const albumImageUri = song.item.album.images[0].url;
+      //joins the artists names together if there is more than one
       const artist = song.item.artists
         .map((_artist) => _artist.name)
         .join(", ");
@@ -49,9 +51,8 @@ const HomeScreen = ({ navigation }) => {
         storeCurrentSong(user.uid, trackName, artist, albumImageUri);
       }
 
-      //Returning the top 5 artists as an array
+      //Returning the data for the currently listening to song
       return { albumImageUri, artist, isPlaying, songUrl, trackName };
-      // return {trackName};
     } catch (error) {
       //Catching error and logging to console
       console.log(error);
@@ -63,21 +64,35 @@ const HomeScreen = ({ navigation }) => {
   const { spotifyToken } = useAuth();
   const [currentlyListening, setCurrentlyListening] = useState([]);
 
+  //Runs when page is opened, uses the token to get the users currently listening to
+  //Then stores the data in a variable
   useFocusEffect(
     useCallback(() => {
       getCurrentlyListening(spotifyToken) //run function
         .then(setCurrentlyListening)
         .catch((error) => setCurrentlyListening(null));
+
+      console.log(getSpotifyStats(user.uid, "short_term"));
     }, [])
   );
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={{ width: "90%" }}>
         <View style={styles.container}>
-          <View style={styles.headerButton}>
-            <Text style={styles.textHeader}>{name}'s Home Page</Text>
-          </View>
+          <Image
+            style={styles.logo}
+            source={require("../../../assets/tuneLogLogo.png")}
+          />
+          <Text style={styles.textHeader}>Welcome to your Home Page</Text>
+          <View
+            style={{
+              borderBottomColor: "#827f7f",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              alignSelf: "stretch",
+              margin: 10,
+            }}
+          />
           <Text>Currently Listening to:</Text>
           {currentlyListening ? (
             <View style={styles.button}>
@@ -117,7 +132,18 @@ const HomeScreen = ({ navigation }) => {
             </View>
           )}
         </View>
+        <View style={styles.centreItem}>
+          <View
+            style={{
+              borderBottomColor: "#827f7f",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              alignSelf: "stretch",
+              margin: 10,
+            }}
+          />
 
+          <Text>Following</Text>
+        </View>
         <FollowerList
           userId={user.uid}
           unfollow={"true"}
@@ -132,10 +158,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    width: "100%",
   },
   button: {
     width: "100%",
-    // height: "30%",
     alignItems: "center",
     backgroundColor: "#D3A8F6",
     color: "white",
@@ -175,6 +201,13 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     alignItems: "center",
+  },
+  logo: {
+    flex: 1,
+    height: 140,
+    width: 180,
+    alignSelf: "center",
+    margin: 30,
   },
 });
 

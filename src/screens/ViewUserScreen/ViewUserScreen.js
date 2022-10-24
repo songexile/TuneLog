@@ -11,7 +11,7 @@ import ProfileStatSnippet from "../../components/StatsComponents/ProfileStatSnip
 import CurrentMusicMoodComponent from "../../components/CurrentMusicMoodComponent";
 import { hi, retrieveImage, retrieveImageUrl } from "../../hooks/useWriteDb";
 
-const ViewUserScreen = ({ route, navigator }) => {
+const ViewUserScreen = ({ route, navigation }) => {
   const { viewingId } = route.params;
   const [username, setUsername] = useState("User");
   const [loading, setLoading] = useState(true);
@@ -53,14 +53,10 @@ const ViewUserScreen = ({ route, navigator }) => {
       <ProfileImage image={profilePicture} name={username} />
 
       <ProfileStatSnippet genre="Hyperpop" />
-      <CurrentMusicMoodComponent
-        artist="Bladee"
-        userName={username}
-        song="Gluee"
-      />
+      <CurrentMusicMoodComponent userName={username} userId={viewingId} />
       <CustomButton
         title="View stats"
-        onPress={() => navigation.navigate("Stats")}
+        onPress={() => navigation.navigate("ViewUserStats")}
       />
     </View>
   );

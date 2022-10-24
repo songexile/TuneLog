@@ -1,16 +1,55 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFeelingMood, useDisplayName } from "../hooks/readDb";
+import { WebView } from "react-native-webview";
+import { getCurrentlyFeeling } from "../hooks/spotifyfunctions";
 
 export default function CurrentMusicMoodComponent(props) {
-  const artist = "Zyzz";
-  const song = "Oh";
+  const { userName, userId } = props;
+  const [spotifyLink, setSpotifyLink] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  console.log(userId);
+
+  useEffect(() => {
+    getCurrentlyFeeling(userId).then((feeling) => {
+      console.log("link! " + feeling);
+      setSpotifyLink(feeling);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) return <Text>Loading {userName}'s top current song</Text>;
   return (
     <View style={styles.bubbleContainer}>
       <Text style={styles.userText}>{props.userName} is feeling...</Text>
-      <Text style={styles.text}>
-        {artist} - {song}
-      </Text>
+      <View
+        style={{
+          height: 100,
+          scalesPageToFit: true,
+          position: "static",
+          inset: 0,
+        }}
+      >
+        <WebView
+          source={{
+            uri:
+              "https://open.spotify.com/embed/track/" +
+              spotifyLink +
+              "?utm_source=generator",
+          }}
+          style={{
+            height: 80,
+            width: 300,
+            frameBorder: 0,
+            scrollEnabled: false,
+            flex: 0,
+            scalesPageToFit: true,
+            position: "static",
+            inset: 0,
+          }}
+        ></WebView>
+      </View>
     </View>
   );
 }
