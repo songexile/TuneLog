@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -16,5 +15,19 @@ export default StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 7,
+  },
+  spacer: {
+    marginTop: 10,
+    height: 30,
+  },
+  bubbleContainer: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 50,
+    justifyContent: "center",
+
+    width: 300,
+    height: 100,
+    alignItems: "center",
   },
 });

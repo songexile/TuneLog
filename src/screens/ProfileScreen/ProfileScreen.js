@@ -13,7 +13,7 @@ import { db } from "../../model/config";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import zyzz from "../../../assets/zyzz.jpg";
-import { storeImage } from "../../hooks/useWriteDb";
+import { getBio, storeImage } from "../../hooks/useWriteDb";
 
 const getProfilePicture = async (spotifyToken) => {
   //Getting spotify token
@@ -45,6 +45,7 @@ const ProfileScreen = ({ navigation, viewingId }) => {
   const [userName, setUsername] = useState("");
   const [profilePicture, setProfilePicture] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [bio, setBio] = useState("");
   const { user } = useAuth();
   const { spotifyToken, setSpotifyToken } = useAuth();
   const userId = user.uid;
@@ -57,8 +58,10 @@ const ProfileScreen = ({ navigation, viewingId }) => {
         } else {
           console.log("No data available");
         }
+        getBio(userId).then((bio) => {
+          setBio(bio);
+        });
       });
-
       getProfilePicture(spotifyToken).then((image) => {
         setProfilePicture(image);
       });
@@ -83,10 +86,14 @@ const ProfileScreen = ({ navigation, viewingId }) => {
       />
       <ProfileStatSnippet genre="Hyperpop" />
       <CurrentMusicMoodComponent userName={userName} userId={userId} />
+      <View style={styles.spacer}></View>
       <CustomButton
         title="View stats"
         onPress={() => navigation.navigate("Stats")}
       />
+      <View style={styles.bubbleContainer}>
+        <Text>{bio}</Text>
+      </View>
     </View>
   );
 };

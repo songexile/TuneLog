@@ -32,6 +32,34 @@ async function writeUserName(userId, username) {
   return; //if username exist we just return
 }
 
+function writeBio(userId, bio) {
+  if (bio == "") {
+    return "Bio is empty";
+  }
+
+  if (bio.length > 30) {
+    return "Bio is too long";
+  } else {
+    update(ref(db, "users/" + userId), {
+      bio: bio,
+    });
+    return "Bio was updated";
+  }
+}
+
+export async function getBio(userId) {
+  const bio = await get(child(ref(db), "users/" + userId + "/bio")).then(
+    (snapshot) => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }
+  );
+  return bio;
+}
+
 const userNameExist = async (username, userId) => {
   const exist = await get(child(ref(db), "users/")).then((snapshot) => {
     if (snapshot.exists()) {
@@ -200,4 +228,6 @@ export {
   storeCurrentSong,
   writeProfilePicture,
   storeImage,
+  writeBio,
+  getUsernameFromId,
 };

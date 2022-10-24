@@ -9,7 +9,12 @@ import CustomButton from "../../components/CustomButton";
 import ProfileImage from "../../components/ProfileImage";
 import ProfileStatSnippet from "../../components/StatsComponents/ProfileStatSnippet";
 import CurrentMusicMoodComponent from "../../components/CurrentMusicMoodComponent";
-import { hi, retrieveImage, retrieveImageUrl } from "../../hooks/useWriteDb";
+import {
+  getBio,
+  hi,
+  retrieveImage,
+  retrieveImageUrl,
+} from "../../hooks/useWriteDb";
 
 const ViewUserScreen = ({ route, navigation }) => {
   const { viewingId } = route.params;
@@ -18,6 +23,7 @@ const ViewUserScreen = ({ route, navigation }) => {
   const [profilePicture, setProfilePicture] = useState(
     "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
   );
+  const [bio, setBio] = useState("");
 
   if (viewingId) {
     useFocusEffect(
@@ -28,6 +34,9 @@ const ViewUserScreen = ({ route, navigation }) => {
           } else {
             setUsername("not found");
           }
+        });
+        getBio(viewingId).then((bio) => {
+          setBio(bio);
         });
         get(child(ref(db), "users/" + viewingId + "/imageUrl")).then(
           (snapshot) => {
@@ -58,6 +67,10 @@ const ViewUserScreen = ({ route, navigation }) => {
         title="View stats"
         onPress={() => navigation.navigate("ViewUserStats")}
       />
+
+      <View>
+        <Text>{bio}</Text>
+      </View>
     </View>
   );
 };
