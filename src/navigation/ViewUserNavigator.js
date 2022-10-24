@@ -19,6 +19,7 @@ export const ViewUserNavigator = ({ route }) => {
       <Stack.Screen
         name="ViewUserStats"
         component={StatsScreen}
+        options={{ headerShown: false }}
         initialParams={{ viewingId: viewingId }}
       />
     </Stack.Navigator>

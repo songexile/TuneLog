@@ -24,6 +24,7 @@ const StatsScreen = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
 
   const [timePeriod, setTimePeriod] = useState(shortTerm);
+  const [timePeriodText, setTimePeriodText] = useState("Short Term"); //this gives a better user experience as the user can see what time period they are viewing
 
   const mediumTerm = "medium_term"; //default time period is short term
   const shortTerm = "short_term";
@@ -36,10 +37,13 @@ const StatsScreen = ({ navigation, route }) => {
     //function to switch time period
     if (timePeriod == shortTerm) {
       setTimePeriod(mediumTerm);
+      setTimePeriodText("Medium Term");
     } else if (timePeriod == mediumTerm) {
       setTimePeriod(longTerm);
+      setTimePeriodText("Long Term");
     } else if (timePeriod == longTerm) {
       setTimePeriod(shortTerm);
+      setTimePeriodText("Short Term");
     }
 
     console.warn("pressed");
@@ -48,8 +52,6 @@ const StatsScreen = ({ navigation, route }) => {
   //this effect just sets timeperiod to short term
   useEffect(() => {
     setTimePeriod(shortTerm);
-
-    console.log(viewingId + "+!!");
     setLoading(false);
   }, []);
 
@@ -60,7 +62,7 @@ const StatsScreen = ({ navigation, route }) => {
       //api call to firebase
       setTopSong(data);
 
-      getSpotifyStats(viewingId, "short_term", "top_artists").then((data) => {
+      getSpotifyStats(viewingId, timePeriod, "top_artists").then((data) => {
         setTopArtist(data);
         setLoading(false);
       });
@@ -74,13 +76,13 @@ const StatsScreen = ({ navigation, route }) => {
         <ScrollView style={styles.scrollView}>
           <View style={styles.headerButton}>
             <Text style={{ fontWeight: "bold", color: "black", fontSize: 26 }}>
-              Your Stats
+              {viewingId == user.id ? "Your" : "Their"} Stats
             </Text>
             <TouchableOpacity onPress={() => changeTimePeriod(timePeriod)}>
               <Text
                 style={{ fontWeight: "bold", color: "black", fontSize: 26 }}
               >
-                Current Time Period {timePeriod}
+                Current Time Period {timePeriodText}
               </Text>
             </TouchableOpacity>
             {console.log(topSong)}
