@@ -86,11 +86,12 @@ const ProfileScreen = ({ navigation, viewingId }) => {
       />
       <ProfileStatSnippet genre="Hyperpop" />
       <CurrentMusicMoodComponent userName={userName} userId={userId} />
+      <View style={styles.spacer}></View>
       <CustomButton
         title="View stats"
         onPress={() => navigation.navigate("Stats")}
       />
-      <View>
+      <View style={styles.bubbleContainer}>
         <Text>{bio}</Text>
       </View>
     </View>
