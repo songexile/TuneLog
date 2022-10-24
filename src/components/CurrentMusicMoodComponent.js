@@ -7,6 +7,7 @@ import { getCurrentlyFeeling } from "../hooks/spotifyfunctions";
 export default function CurrentMusicMoodComponent(props) {
   const { userName, userId } = props;
   const [spotifyLink, setSpotifyLink] = useState("");
+  const [loading, setLoading] = useState(true);
 
   console.log(userId);
 
@@ -14,9 +15,11 @@ export default function CurrentMusicMoodComponent(props) {
     getCurrentlyFeeling(userId).then((feeling) => {
       console.log("link! " + feeling);
       setSpotifyLink(feeling);
+      setLoading(false);
     });
   }, []);
 
+  if (loading) return <Text>Loading {userName}'s top current song</Text>;
   return (
     <View style={styles.bubbleContainer}>
       <Text style={styles.userText}>{props.userName} is feeling...</Text>
