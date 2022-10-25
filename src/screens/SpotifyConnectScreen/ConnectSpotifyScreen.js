@@ -69,24 +69,19 @@ const ConnectSpotifyScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View style={styles.headerButton}>
-          <Text style={{ fontSize: 24 }}>Spotify Authentication</Text>
+          <Text style={styles.text}>Spotify Authentication</Text>
         </View>
         <Image
           style={styles.logo}
           source={require("../../../assets/spotifyLogo.png")}
         />
-        <TouchableOpacity style={styles.button}>
-          <Button
-            light
-            disabled={!request}
-            title="Connect to Spotify"
-            onPress={() => {
-              promptAsync();
-            }}
-          />
+
+        <TouchableOpacity style={styles.button} onPress={() => promptAsync()}>
+          <Text style={styles.text}>Connect to Spotify</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Button onPress={signOut} title="Sign out"></Button>
+
+        <TouchableOpacity style={styles.button} onPress={() => signOut()}>
+          <Text style={styles.text}>Sign Out</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -98,7 +93,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
   },
   headerButton: {
     alignItems: "center",
@@ -108,6 +102,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     margin: 8,
+    width: "100%",
   },
   button: {
     alignItems: "center",
@@ -117,12 +112,18 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 10,
     margin: 5,
+    height: "10%",
   },
   logo: {
     height: 100,
     width: 100,
     alignSelf: "center",
     margin: 30,
+  },
+  text: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 
