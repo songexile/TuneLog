@@ -7,6 +7,7 @@ import { writeBio, writeUserName } from "../../hooks/useWriteDb";
 import { useFocusEffect } from "@react-navigation/native";
 import { db } from "../../model/config";
 import { get, ref, child, update, set, remove } from "firebase/database";
+import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
 
 //view for editing profile
 const EditProfileScreen = ({ navigation }) => {
