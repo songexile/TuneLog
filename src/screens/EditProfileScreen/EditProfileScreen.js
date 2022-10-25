@@ -40,6 +40,7 @@ const EditProfileScreen = ({ navigation }) => {
   return (
     <View styles={styles.container}>
       <View style={{marginTop: "20%"}}/>
+      <Text style={{textAlign: "center"}}>Edit Profile</Text>
       <TextInput
         style={styles.input}
         placeholder={loading ? "Loading..." : username}
