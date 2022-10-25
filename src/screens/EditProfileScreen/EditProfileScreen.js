@@ -39,8 +39,16 @@ const EditProfileScreen = ({ navigation }) => {
 
   return (
     <View styles={styles.container}>
-      <View style={{marginTop: "20%"}}/>
-      <Text style={{textAlign: "center"}}>Edit Profile</Text>
+      <View style={{marginTop: "15%"}}/>
+      <Text style={{textAlign: "center", 
+                    marginBottom: 30,
+                    fontSize: 20,}}>Personlise your profile here!</Text>
+      <Text style={{marginLeft: 30,
+                    marginRight: 30,
+                    paddingLeft: 15,
+                    fontWeight: "bold",
+                    }}>
+                      Username:</Text>
       <TextInput
         style={styles.input}
         placeholder={loading ? "Loading..." : username}
@@ -56,7 +64,12 @@ const EditProfileScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonTitle}>Change username</Text>
       </TouchableOpacity>
-
+      <Text style={{marginLeft: 30,
+                    marginRight: 30,
+                    marginTop:50,
+                    paddingLeft: 16,
+                    fontWeight: "bold",}}>
+                      Bio:</Text>
       <TextInput
         stlye
         style={styles.input}
