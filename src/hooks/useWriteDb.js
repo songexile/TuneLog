@@ -41,8 +41,8 @@ function writeBio(userId, bio) {
     update(ref(db, "users/" + userId), {
       bio: bio,
     });
+    return "Bio has been updated.";
   }
-  return "Bio has been updated.";
 }
 
 export async function getBio(userId) {
