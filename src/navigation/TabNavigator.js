@@ -61,7 +61,11 @@ function TabNavigator() {
       })}
     >
       <Tab.Screen name="Home" component={FollowingNavigator} />
-      <Tab.Screen name="MusicMap" component={MusicMapScreen} />
+      <Tab.Screen
+        name="MusicMap"
+        component={MusicMapScreen}
+        options={{ title: "Music Map" }}
+      />
       <Tab.Screen
         name="Profile"
         component={ProfileNavigator}

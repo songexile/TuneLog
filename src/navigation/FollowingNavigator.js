@@ -17,7 +17,11 @@ const FollowingNavigator = () => {
         name="FollowingList"
         component={HomeScreen}
       />
-      <Stack.Screen name="ViewUser" component={ProfileNavigator} />
+      <Stack.Screen
+        name="ViewUser"
+        component={ProfileNavigator}
+        options={{ title: "" }}
+      />
       <Stack.Screen name="Stats" component={StatsScreen} />
     </Stack.Navigator>
   );

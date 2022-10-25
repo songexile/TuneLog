@@ -17,8 +17,16 @@ const SettingNavigator = () => {
         name="Settings"
         component={SettingScreen}
       />
-      <Stack.Screen name="AddFriend" component={AddFriendScreen} />
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+      <Stack.Screen
+        name="AddFriend"
+        component={AddFriendScreen}
+        options={{ title: "Follow user" }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{ title: "Edit Profile" }}
+      />
     </Stack.Navigator>
   );
 };

@@ -43,7 +43,7 @@ const EditProfileScreen = ({ navigation }) => {
 
       <TextInput
         style={styles.input}
-        placeholder={username}
+        placeholder={loading ? "Loading..." : username}
         placeholderTextColor="#aaaaaa"
         onChangeText={(text) => setUserName(text)}
         value={username}
@@ -58,6 +58,7 @@ const EditProfileScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <TextInput
+        stlye
         style={styles.input}
         placeholder={loading ? "Loading..." : bio}
         placeholderTextColor="#aaaaaa"
