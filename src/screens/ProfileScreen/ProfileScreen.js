@@ -1,4 +1,4 @@
-import { View, Text, Image, Button, StyleSheet } from "react-native";
+import { View, Text, Image, Button, StyleSheet, SafeAreaView, ScrollView, } from "react-native";
 import React, { useEffect, useState } from "react";
 import styles from "./styles";
 
@@ -70,32 +70,36 @@ const ProfileScreen = ({ navigation, route }) => {
 
   const ProfilePage = () => {
     return (
-      <View style={styles.container}>
-        {<ProfileImage image={profilePicture} name={userNameDisplay} />}
-        
-        <View style={[styles.rectContainer, styles.spacer]}>
-          <Text style={styles.text}>{bio}</Text>
-        </View>
-        <View
-            style={{
-              borderBottomColor: "#827f7f",
-              borderBottomWidth: StyleSheet.hairlineWidth,
-              alignSelf: "stretch",
-              margin: 30,
-            }}
-          />
-        <View style={styles.spacer}>
-          <Text style={styles.text}>{userName}'s current favourite</Text>
-        </View>
-        <View style={[styles.roundContainer, styles.spacer]}>
-          <CurrentMusicMoodComponent userName={userName} userId={userId} />
-        </View>
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={{ width: "90%" }}>
+          <View style={styles.container}>
+            {<ProfileImage image={profilePicture} name={userNameDisplay} />}
+            
+            <View style={[styles.rectContainer, styles.spacer]}>
+              <Text style={styles.text}>{bio}</Text>
+            </View>
+            <View
+                style={{
+                  borderBottomColor: "#827f7f",
+                  borderBottomWidth: StyleSheet.hairlineWidth,
+                  alignSelf: "stretch",
+                  margin: 30,
+                }}
+              />
+            <View style={styles.spacer}>
+              <Text style={styles.text}>{userName}'s current favourite</Text>
+            </View>
+            <View style={[styles.roundContainer, styles.spacer]}>
+              <CurrentMusicMoodComponent userName={userName} userId={userId} />
+            </View>
 
-        <CustomButton
-          title="View stats"
-          onPress={() => navigation.navigate("Stats")}
-        />
-      </View>
+            <CustomButton
+              title="View stats"
+              onPress={() => navigation.navigate("Stats")}
+            />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     );
   };
 
