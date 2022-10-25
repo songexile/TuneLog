@@ -4,6 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+
     padding: 20,
   },
   circleImage: {
@@ -17,17 +18,24 @@ export default StyleSheet.create({
     marginTop: 7,
   },
   spacer: {
-    marginTop: 10,
-    height: 30,
+    marginTop: 20,
   },
-  bubbleContainer: {
-    flex: 1,
+  rectContainer: {
     backgroundColor: "#FFFFFF",
-    borderRadius: 50,
     justifyContent: "center",
+    height: "10%",
+    width: "100%",
+    borderRadius: 20,
 
-    width: 300,
-    height: 100,
+    alignItems: "center",
+  },
+  roundContainer: {
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    height: "20%",
+    width: "100%",
+    borderRadius: 20,
+
     alignItems: "center",
   },
 });

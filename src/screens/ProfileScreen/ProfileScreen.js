@@ -19,6 +19,7 @@ const ProfileScreen = ({ navigation, route }) => {
   const { viewingId } = route.params; //we pass in the userid of the user we are viewing
 
   const [userName, setUsername] = useState("");
+  const [userNameDisplay, setUsernameDisplay] = useState("");
   const [profilePicture, setProfilePicture] = useState([]);
   const [loading, setLoading] = useState(true);
   const [bio, setBio] = useState("");
@@ -32,10 +33,11 @@ const ProfileScreen = ({ navigation, route }) => {
         if (snapshot.exists()) {
           const username = snapshot.val().username;
           if (viewingId == user.uid) {
-            setUsername(username + " (You)");
+            setUsernameDisplay(username + " (You)");
           } else {
-            setUsername(username);
+            setUsernameDisplay(username);
           }
+          setUsername(username);
         } else {
           console.log("No data available");
         }
@@ -69,18 +71,22 @@ const ProfileScreen = ({ navigation, route }) => {
   const ProfilePage = () => {
     return (
       <View style={styles.container}>
-        {<ProfileImage image={profilePicture} name={userName} />}
+        {<ProfileImage image={profilePicture} name={userNameDisplay} />}
 
-        <ProfileStatSnippet genre="Hyperpop" />
-        <CurrentMusicMoodComponent userName={userName} userId={userId} />
-        <View style={styles.spacer}></View>
+        <View style={[styles.rectContainer, styles.spacer]}>
+          <Text style={styles.text}>{bio}</Text>
+        </View>
+        <View style={styles.spacer}>
+          <Text style={styles.text}>{userName}'s current favourite</Text>
+        </View>
+        <View style={[styles.roundContainer, styles.spacer]}>
+          <CurrentMusicMoodComponent userName={userName} userId={userId} />
+        </View>
+
         <CustomButton
           title="View stats"
           onPress={() => navigation.navigate("Stats")}
         />
-        <View style={styles.bubbleContainer}>
-          <Text>{bio}</Text>
-        </View>
       </View>
     );
   };

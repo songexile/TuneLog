@@ -22,10 +22,9 @@ export default function CurrentMusicMoodComponent(props) {
   if (loading) return <Text>Loading {userName}'s top current song</Text>;
   return (
     <View style={styles.bubbleContainer}>
-      <Text style={styles.userText}>{props.userName} is feeling...</Text>
       <View
         style={{
-          height: 100,
+          height: 80,
           scalesPageToFit: true,
           position: "static",
           inset: 0,
@@ -57,11 +56,10 @@ export default function CurrentMusicMoodComponent(props) {
 const styles = StyleSheet.create({
   bubbleContainer: {
     backgroundColor: "#FFFFFF",
-    borderRadius: 50,
-
-    width: 300,
-    height: 100,
     alignItems: "center",
+    height: 100,
+    borderRadius: 20,
+    width: "100%",
   },
   userText: {
     fontSize: 20,
