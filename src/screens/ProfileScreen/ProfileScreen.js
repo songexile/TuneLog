@@ -72,10 +72,18 @@ const ProfileScreen = ({ navigation, route }) => {
     return (
       <View style={styles.container}>
         {<ProfileImage image={profilePicture} name={userNameDisplay} />}
-
+        
         <View style={[styles.rectContainer, styles.spacer]}>
           <Text style={styles.text}>{bio}</Text>
         </View>
+        <View
+            style={{
+              borderBottomColor: "#827f7f",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              alignSelf: "stretch",
+              margin: 30,
+            }}
+          />
         <View style={styles.spacer}>
           <Text style={styles.text}>{userName}'s current favourite</Text>
         </View>

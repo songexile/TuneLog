@@ -35,8 +35,8 @@ const ConnectSpotifyScreen = () => {
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
-      clientId: "7614fe0f953b412e9eb6fa1531b051b6",
-      clientSecret: "302ee142bcd9447b94f814604a8f6274",
+      clientId: "ecf0bbd85d8c4456a8551dc30224ee83",
+      clientSecret: "ecf0bbd85d8c4456a8551dc30224ee83",
 
       scopes: [
         "user-read-recently-played",
@@ -47,7 +47,7 @@ const ConnectSpotifyScreen = () => {
       ],
 
       usePKCE: false,
-      redirectUri: "exp://192.168.178.20:19000",
+      redirectUri: "exp://10.0.0.40:19000",
     },
     discovery
   );
@@ -93,6 +93,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
   },
   headerButton: {
     alignItems: "center",
@@ -105,14 +107,13 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   button: {
+    width: "100%",
     alignItems: "center",
-    textAlign: "center",
     backgroundColor: "#D3A8F6",
-    color: "black",
+    color: "white",
     padding: 8,
     borderRadius: 10,
-    margin: 5,
-    height: "10%",
+    margin: 8,
   },
   logo: {
     height: 100,
