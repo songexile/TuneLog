@@ -14,6 +14,7 @@ const EditProfileScreen = ({ navigation }) => {
   const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const [msg, setMsg] = useState("");
 
   //retrieve user bio
   useFocusEffect(
@@ -39,16 +40,21 @@ const EditProfileScreen = ({ navigation }) => {
 
   return (
     <View styles={styles.container}>
-      <View style={{marginTop: "15%"}}/>
-      <Text style={{textAlign: "center", 
-                    marginBottom: 30,
-                    fontSize: 20,}}>Personlise your profile here!</Text>
-      <Text style={{marginLeft: 30,
-                    marginRight: 30,
-                    paddingLeft: 15,
-                    fontWeight: "bold",
-                    }}>
-                      Username:</Text>
+      <View style={{ marginTop: "15%" }} />
+      <Text style={{ textAlign: "center", marginBottom: 30, fontSize: 20 }}>
+        Personlise your profile here!
+      </Text>
+
+      <Text
+        style={{
+          marginLeft: 30,
+          marginRight: 30,
+          paddingLeft: 15,
+          fontWeight: "bold",
+        }}
+      >
+        Username:
+      </Text>
       <TextInput
         style={styles.input}
         placeholder={loading ? "Loading..." : username}
@@ -60,16 +66,25 @@ const EditProfileScreen = ({ navigation }) => {
       />
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#9D3BEA" }]} //TODO: change to global styles
-        onPress={() => writeUserName(user.uid, username)}
+        onPress={() =>
+          writeUserName(user.uid, username).then((res) => {
+            alert(res);
+          })
+        }
       >
         <Text style={styles.buttonTitle}>Change username</Text>
       </TouchableOpacity>
-      <Text style={{marginLeft: 30,
-                    marginRight: 30,
-                    marginTop:50,
-                    paddingLeft: 16,
-                    fontWeight: "bold",}}>
-                      Bio:</Text>
+      <Text
+        style={{
+          marginLeft: 30,
+          marginRight: 30,
+          marginTop: 50,
+          paddingLeft: 16,
+          fontWeight: "bold",
+        }}
+      >
+        Bio:
+      </Text>
       <TextInput
         stlye
         style={styles.input}
@@ -82,7 +97,7 @@ const EditProfileScreen = ({ navigation }) => {
       />
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#9D3BEA" }]} //TODO: change to global styles
-        onPress={() => writeBio(user.uid, bio)}
+        onPress={() => setMsg(writeBio(user.uid, bio)) + alert(msg)}
       >
         <Text style={styles.buttonTitle}>Edit bio</Text>
       </TouchableOpacity>

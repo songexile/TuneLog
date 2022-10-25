@@ -35,8 +35,8 @@ const ConnectSpotifyScreen = () => {
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
-      clientId: "ecf0bbd85d8c4456a8551dc30224ee83",
-      clientSecret: "ecf0bbd85d8c4456a8551dc30224ee83",
+      clientId: "7614fe0f953b412e9eb6fa1531b051b6",
+      clientSecret: "302ee142bcd9447b94f814604a8f6274",
 
       scopes: [
         "user-read-recently-played",
@@ -47,7 +47,7 @@ const ConnectSpotifyScreen = () => {
       ],
 
       usePKCE: false,
-      redirectUri: "exp://10.0.0.40:19000",
+      redirectUri: "exp://192.168.178.20:19000",
     },
     discovery
   );

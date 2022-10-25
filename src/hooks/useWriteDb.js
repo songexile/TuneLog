@@ -7,18 +7,15 @@ async function writeUserName(userId, username) {
   // write the username to the db, if the name is already in the system, it will not be written
 
   if (username == "") {
-    console.warn("username is null");
-    return;
+    return "Username is empty, please write something";
   }
 
   if (username.length > 20) {
-    console.warn("username is too long");
-    return;
+    return "Username is too long please keep it under 20 characters";
   }
 
   if (username.length < 3) {
-    console.warn("username is too short");
-    return;
+    return "Username is too short please keep it over 3 characters";
   }
   //check if username already exisits
   //check if username exists in firebase
@@ -28,23 +25,24 @@ async function writeUserName(userId, username) {
     update(ref(db, "users/" + userId), {
       username: username,
     });
+    return "username was updated";
   }
-  return; //if username exist we just return
+  return "Username already exists, please enter something else."; //if username exist we just return
 }
 
 function writeBio(userId, bio) {
   if (bio == "") {
-    return "Bio is empty";
+    return "Bio is empty, please write something";
   }
 
   if (bio.length > 30) {
-    return "Bio is too long";
+    return "Bio is too long please keep it under 30 characters";
   } else {
     update(ref(db, "users/" + userId), {
       bio: bio,
     });
-    return "Bio was updated";
   }
+  return "Bio has been updated.";
 }
 
 export async function getBio(userId) {
@@ -85,9 +83,7 @@ async function followUser(username, userId) {
           update(ref(db, "users/" + userId + "/following/" + user), {
             //this stores that user in your following tab
             time: Date.now(),
-          }).then(() => {
-            console.warn("user added to following list");
-          });
+          }).then(() => {});
 
           update(ref(db, "users/" + user + "/followers/" + userId), {
             //this stores you in the users followers tab

@@ -13,8 +13,6 @@ const AddFriendScreen = ({ navigation }) => {
   const { user } = useAuth();
   return (
     <View styles={styles.container}>
-      <Text style={styles.buttonTitle}>{msg}</Text>
-
       <TextInput
         style={styles.input}
         placeholder="Username"
@@ -27,9 +25,7 @@ const AddFriendScreen = ({ navigation }) => {
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#9D3BEA" }]} //TODO: change to global styles
-        onPress={() =>
-          followUser(username, user.uid).then((msg) => setMsg(msg))
-        }
+        onPress={() => followUser(username, user.uid).then((msg) => alert(msg))}
       >
         <Text style={styles.buttonTitle}>Follow user</Text>
       </TouchableOpacity>
