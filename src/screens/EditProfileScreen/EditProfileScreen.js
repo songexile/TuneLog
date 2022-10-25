@@ -24,6 +24,13 @@ const EditProfileScreen = ({ navigation }) => {
         } else {
           console.log("No data available");
         }
+        get(child(ref(db), "users/" + user.uid + "/username")).then(
+          (snapshot) => {
+            if (snapshot.exists()) {
+              setUserName(snapshot.val());
+            }
+          }
+        );
 
         setLoading(false); //we have loaded the bio into the state
       });
