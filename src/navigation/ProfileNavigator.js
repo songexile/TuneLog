@@ -9,23 +9,22 @@ import useAuth from "../hooks/useAuth";
 
 const Stack = createStackNavigator();
 
-const ProfileNavigator = () => {
-  const { user } = useAuth();
-  console.log("user in profile navigator", user.uid);
+const ProfileNavigator = ({ route }) => {
+  const { viewingId } = route.params;
+  console.log("user in profile navigator", viewingId);
   return (
     <Stack.Navigator>
       <Stack.Screen
         options={{ headerShown: false }}
         name="Profile"
         component={ProfileScreen}
+        initialParams={{ viewingId: viewingId }}
       />
       <Stack.Screen
         name="Stats"
         component={StatsScreen}
-        initialParams={{ viewingId: user.uid }}
+        initialParams={{ viewingId: viewingId }}
       />
-
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     </Stack.Navigator>
   );
 };

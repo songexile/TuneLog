@@ -24,6 +24,13 @@ const EditProfileScreen = ({ navigation }) => {
         } else {
           console.log("No data available");
         }
+        get(child(ref(db), "users/" + user.uid + "/username")).then(
+          (snapshot) => {
+            if (snapshot.exists()) {
+              setUserName(snapshot.val());
+            }
+          }
+        );
 
         setLoading(false); //we have loaded the bio into the state
       });
@@ -32,11 +39,19 @@ const EditProfileScreen = ({ navigation }) => {
 
   return (
     <View styles={styles.container}>
-      <Text style={styles.title}> Edit Profile </Text>
-
+      <View style={{marginTop: "15%"}}/>
+      <Text style={{textAlign: "center", 
+                    marginBottom: 30,
+                    fontSize: 20,}}>Personlise your profile here!</Text>
+      <Text style={{marginLeft: 30,
+                    marginRight: 30,
+                    paddingLeft: 15,
+                    fontWeight: "bold",
+                    }}>
+                      Username:</Text>
       <TextInput
         style={styles.input}
-        placeholder={username}
+        placeholder={loading ? "Loading..." : username}
         placeholderTextColor="#aaaaaa"
         onChangeText={(text) => setUserName(text)}
         value={username}
@@ -49,8 +64,14 @@ const EditProfileScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonTitle}>Change username</Text>
       </TouchableOpacity>
-
+      <Text style={{marginLeft: 30,
+                    marginRight: 30,
+                    marginTop:50,
+                    paddingLeft: 16,
+                    fontWeight: "bold",}}>
+                      Bio:</Text>
       <TextInput
+        stlye
         style={styles.input}
         placeholder={loading ? "Loading..." : bio}
         placeholderTextColor="#aaaaaa"

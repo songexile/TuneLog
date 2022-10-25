@@ -3,9 +3,9 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import StatsScreen from "../screens/StatsScreen/StatsScreen";
 
-import ViewUserScreen from "../screens/ViewUserScreen/ViewUserScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
-import { ViewUserNavigator } from "./ViewUserNavigator";
+
+import ProfileNavigator from "./ProfileNavigator";
 
 const Stack = createStackNavigator();
 
@@ -17,7 +17,11 @@ const FollowingNavigator = () => {
         name="FollowingList"
         component={HomeScreen}
       />
-      <Stack.Screen name="ViewUser" component={ViewUserNavigator} />
+      <Stack.Screen
+        name="ViewUser"
+        component={ProfileNavigator}
+        options={{ title: "" }}
+      />
       <Stack.Screen name="Stats" component={StatsScreen} />
     </Stack.Navigator>
   );

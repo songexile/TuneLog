@@ -14,7 +14,10 @@ import {
 } from "react-native";
 import axios from "axios";
 import * as Linking from "expo-linking";
-import { storeSpotifyStats } from "../../hooks/spotifyfunctions";
+import {
+  getProfilePicture,
+  storeSpotifyStats,
+} from "../../hooks/spotifyfunctions";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -32,8 +35,8 @@ const ConnectSpotifyScreen = () => {
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Token,
-      clientId: "7614fe0f953b412e9eb6fa1531b051b6",
-      clientSecret: "302ee142bcd9447b94f814604a8f6274",
+      clientId: "ecf0bbd85d8c4456a8551dc30224ee83",
+      clientSecret: "ecf0bbd85d8c4456a8551dc30224ee83",
 
       scopes: [
         "user-read-recently-played",
@@ -44,7 +47,7 @@ const ConnectSpotifyScreen = () => {
       ],
 
       usePKCE: false,
-      redirectUri: "exp://192.168.178.20:19000",
+      redirectUri: "exp://10.0.0.40:19000",
     },
     discovery
   );
@@ -56,7 +59,7 @@ const ConnectSpotifyScreen = () => {
       const { access_token } = response.params;
       console.log("running storespotify");
       storeSpotifyStats(access_token, user.uid);
-      // console.log("accessToken", access_token);
+      getProfilePicture(access_token, user.uid);
       setSpotifyToken(access_token);
     }
   }, [response]);
@@ -66,24 +69,19 @@ const ConnectSpotifyScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View style={styles.headerButton}>
-          <Text style={{ fontSize: 24 }}>Spotify Authentication</Text>
+          <Text style={styles.text}>Spotify Authentication</Text>
         </View>
         <Image
           style={styles.logo}
           source={require("../../../assets/spotifyLogo.png")}
         />
-        <TouchableOpacity style={styles.button}>
-          <Button
-            light
-            disabled={!request}
-            title="Connect to Spotify"
-            onPress={() => {
-              promptAsync();
-            }}
-          />
+
+        <TouchableOpacity style={styles.button} onPress={() => promptAsync()}>
+          <Text style={styles.text}>Connect to Spotify</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Button onPress={signOut} title="Sign out"></Button>
+
+        <TouchableOpacity style={styles.button} onPress={() => signOut()}>
+          <Text style={styles.text}>Sign Out</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -96,6 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   headerButton: {
     alignItems: "center",
@@ -105,21 +104,27 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     margin: 8,
+    width: "100%",
   },
   button: {
+    width: "100%",
     alignItems: "center",
-    textAlign: "center",
     backgroundColor: "#D3A8F6",
-    color: "black",
+    color: "white",
     padding: 8,
     borderRadius: 10,
-    margin: 5,
+    margin: 8,
   },
   logo: {
     height: 100,
     width: 100,
     alignSelf: "center",
     margin: 30,
+  },
+  text: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 
