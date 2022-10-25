@@ -14,7 +14,10 @@ import {
 } from "react-native";
 import axios from "axios";
 import * as Linking from "expo-linking";
-import { storeSpotifyStats } from "../../hooks/spotifyfunctions";
+import {
+  getProfilePicture,
+  storeSpotifyStats,
+} from "../../hooks/spotifyfunctions";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -56,7 +59,7 @@ const ConnectSpotifyScreen = () => {
       const { access_token } = response.params;
       console.log("running storespotify");
       storeSpotifyStats(access_token, user.uid);
-      // console.log("accessToken", access_token);
+      getProfilePicture(access_token, user.uid);
       setSpotifyToken(access_token);
     }
   }, [response]);
