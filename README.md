@@ -65,19 +65,24 @@ The redirectUri should be set to the address that yarn start gives you.
 This project was created by Ray Howorth, Otis Wales and Elan McInerney
 If you have any issues or bugs please open a thread in the issues section on GitHub.
 
-## Images
 
-### Home page
+## Screens
 
-![Homepage](https://i.imgur.com/JABWE2Z.jpg)
+<p float="left">
+  <img src="https://i.imgur.com/JABWE2Z.jpg" width=25% height=25%>
+  <img src="https://i.imgur.com/KDAEc0h.jpg" width=25% height=25%>
+    <img src="https://i.imgur.com/ankMsPY.jpg" width=25% height=25%>
+</p
 
 
-### User's profile
+## Viewing a users Spotify statistics
 
-![User profile](https://i.imgur.com/KDAEc0h.jpg)
+<p float="left">
+  <img src="https://i.imgur.com/TnggaZh.jpg" width=25% height=25%>
+  <img src="https://i.imgur.com/NwKcagd.jpg" width=25% height=25%>
+    <img src="https://i.imgur.com/EuMo5Ic.jpg" width=25% height=25%>
+</p
 
-### Viewing other users stats (short term time period)
 
-![Other users stats](https://i.imgur.com/NwKcagd.jpg)
 
 
