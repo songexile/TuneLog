@@ -1,7 +1,7 @@
 # TuneLog 
 
 
-![Homepage](https://i.imgur.com/JABWE2Z.jpg)
+
 
 TuneLog is an app created with React Native. It allows users to sign up with their email and password to create an account.
 The app uses the Spotify API and retrieves the users OAuth 2.0 token to display Spotify statistics, such as Top Songs, Top Artists, etc.
@@ -64,3 +64,20 @@ The redirectUri should be set to the address that yarn start gives you.
 
 This project was created by Ray Howorth, Otis Wales and Elan McInerney
 If you have any issues or bugs please open a thread in the issues section on GitHub.
+
+## Images
+
+### Home page
+
+![Homepage](https://i.imgur.com/JABWE2Z.jpg)
+
+
+### User's profile
+
+![User profile](https://i.imgur.com/KDAEc0h.jpg)
+
+### Viewing other users stats (short term time period)
+
+![Other users stats](https://i.imgur.com/NwKcagd.jpg)
+
+
